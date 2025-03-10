@@ -1,21 +1,15 @@
 import requests
 
-
-def access_to_dictionary(word):
-    url = "https://en.wiktionary.org/w/api.php"
-    params = {
-        "action": "query",
-        "titles": word,
-        "prop": "extracts",
-        "format": "json",
-        "explaintext": True,
-    }
-    response = requests.get(url, params=params)
-
-    if response.status_code == 200:
-        print(response.json())
-        return print(f"{word} exists in the dictionary")
+def check(city):
+    URL = f"https://www.geonames.org/search.html?q={city}"
+    response = requests.request("GET", URL)
+    print(response.text)
+    if 'we have found no places' in response.text.lower():  # Case-insensitive match
+        return False
     else:
-        return print(f"{word} does not exist in the dictionary")
+        return True
 
-access_to_dictionary("kurwa")
+
+
+
+
