@@ -1,5 +1,7 @@
 import requests
 
+str = "after commit"
+
 def check(city):
     URL = f"https://www.geonames.org/search.html?q={city}"
     response = requests.request("GET", URL)
