@@ -87,4 +87,5 @@ while run:
     pygame.display.update()
     pygame.display.flip()
 
+print("change")
 pygame.quit()
