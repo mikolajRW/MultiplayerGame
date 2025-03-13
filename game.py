@@ -9,8 +9,8 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-player = pygame.Rect((30, 250, 40, 40))
-
+player = pygame.Rect((15, 190, 100, 40))
+#zrobić interaktywny kwadrat
 
 game_font = pygame.font.Font(None, 32)
 text_font = pygame.font.SysFont("Arial", 32)
@@ -68,8 +68,7 @@ while run:
                     player.move_ip(150, 0)
             elif event.key == pygame.K_BACKSPACE:
                 df.at[cursor, "Answer"] = df.at[cursor, "Answer"][:-1]
-            elif event.key == pygame.K_1:
-                print(df)
+
             else:
                 df.at[cursor, "Answer"] += event.unicode
                 user_text += event.unicode
@@ -80,10 +79,10 @@ while run:
     for i in range(len(df)):
         draw_text(df.iloc[i]["Category"], game_font, (255, 255, 255), 20 + 150 * i , 100)
         draw_text(df.iloc[i]["Answer"], game_font, (255, 255, 255), 20 + 150 * i, 200)
-
-    pygame.draw.rect(screen, (255, 0, 0), player)
-    text_surface = game_font.render(user_text, True, (255,255,255))
-    screen.blit(text_surface, (0,0))
+       # pygame.draw.rect(screen, (255, 0, 0), (100,,100,100),2)
+    pygame.draw.rect(screen, (255, 0, 0), player,2)
+    #text_surface = game_font.render(user_text, True, (255,255,255))
+    #screen.blit(text_surface, (0,0))
     pygame.display.update()
     pygame.display.flip()
 
