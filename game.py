@@ -9,17 +9,12 @@ SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 600
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-<<<<<<< Updated upstream
-player = pygame.Rect((15, 190, 100, 40))
-#zrobić interaktywny kwadrat
-=======
 player = pygame.Rect((30, 250, 40, 40))
 player_img = pygame.image.load("images/cursor.png")
 player_img = pygame.transform.scale(player_img, (40, 40))
 #player.x = 150
 
 player_rect = player_img.get_rect(topleft=(30, 250))
->>>>>>> Stashed changes
 
 category_color = (255, 0, 0)
 answer_color = (255, 255, 255)
@@ -105,18 +100,12 @@ while run:
                 cursor += 1
 
             elif event.key == pygame.K_BACKSPACE:
-<<<<<<< Updated upstream
-                df.at[cursor, "Answer"] = df.at[cursor, "Answer"][:-1]
-
-            else:
-=======
 
                 if len(df.at[cursor, "Answer"]) > 1:
                     df.at[cursor, "Answer"] = df.at[cursor, "Answer"][:-1]
             elif event.key == pygame.K_1:
                 print(df)
             elif event.unicode.isalpha():
->>>>>>> Stashed changes
                 df.at[cursor, "Answer"] += event.unicode
             else:
                 print("Wrong input!")
@@ -124,15 +113,6 @@ while run:
     #df = change_to_lowercase(df)
     cursor = check_cursor(cursor)
 
-<<<<<<< Updated upstream
-    for i in range(len(df)):
-        draw_text(df.iloc[i]["Category"], game_font, (255, 255, 255), 20 + 150 * i , 100)
-        draw_text(df.iloc[i]["Answer"], game_font, (255, 255, 255), 20 + 150 * i, 200)
-       # pygame.draw.rect(screen, (255, 0, 0), (100,,100,100),2)
-    pygame.draw.rect(screen, (255, 0, 0), player,2)
-    #text_surface = game_font.render(user_text, True, (255,255,255))
-    #screen.blit(text_surface, (0,0))
-=======
     screen.fill((235, 132, 250))
 
 
@@ -140,9 +120,7 @@ while run:
     print_cursor(df)
 
 
->>>>>>> Stashed changes
     pygame.display.update()
     pygame.display.flip()
 
-print("change")
 pygame.quit()
