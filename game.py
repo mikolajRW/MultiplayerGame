@@ -37,6 +37,37 @@ cursor = 0
 run = True
 
 
+
+
+class Button():
+    def __init__(self, width, height, text, font, text_col):
+        self.x = SCREEN_WIDTH/2 - SCREEN_WIDTH/4
+        self.y = SCREEN_HEIGHT/2 - SCREEN_HEIGHT/10
+        self.width = width
+        self.height = height
+        self.text = text
+        self.font = font
+        self.text_col = text_col
+        self.color = (200,200,200)
+
+    def checkForClick(self, mouse):
+        if mouse[0] > self.x and mouse[0] < self.x + self.width and mouse[1] > self.y and mouse[1] < self.y + self.height:
+                return True
+        return False
+
+    def draw(self, screen):
+        pygame.draw.rect(screen, self.color, (self.x, self.y, self.width, self.height))
+        text = self.font.render(self.text, 1, self.text_col)
+        text_rect = text.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
+        screen.blit(text, text_rect)
+    def change_color(self, mouse):
+       if mouse[0] > self.x and mouse[0] < self.x + self.width and mouse[1] > self.y and mouse[1] < self.y + self.height:
+            self.color = (255,255,255)
+       else:
+            self.color = (0,0,0)
+
+
+
 def define_positions():
     for index in range(len(df)):
         if index < 4:
@@ -86,41 +117,81 @@ def change_to_lowercase(game_array):
 
 define_positions()
 
-while run:
-    key = pygame.key.get_pressed()
-
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
-                cursor -= 1
-
-            elif event.key == pygame.K_RIGHT or event.key == pygame.K_RETURN:
-                cursor += 1
-
-            elif event.key == pygame.K_BACKSPACE:
-
-                if len(df.at[cursor, "Answer"]) > 1:
-                    df.at[cursor, "Answer"] = df.at[cursor, "Answer"][:-1]
-            elif event.key == pygame.K_1:
-                print(df)
-            elif event.unicode.isalpha():
-                df.at[cursor, "Answer"] += event.unicode
-            else:
-                print("Wrong input!")
-
-    #df = change_to_lowercase(df)
-    cursor = check_cursor(cursor)
-
-    screen.fill((235, 132, 250))
 
 
-    print_categories_and_answers()
-    print_cursor(df)
 
 
-    pygame.display.update()
-    pygame.display.flip()
+def menu(run, cursor, df):
+    while run:
+        screen.fill((235, 132, 250))
+        menu_text = text_font.render("Menu", True, (0,0,0))
+        text_react = menu_text.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/10))
+        screen.blit(menu_text, text_react)
+        play_button = Button(width=SCREEN_WIDTH / 2, height=SCREEN_HEIGHT / 5, text ="Play",
+                             font = text_font, text_col = (100,100,100))
+        #exit_button = draw_text("EXIT", text_font, (255, 255, 255), SCREEN_WIDTH/2, SCREEN_HEIGHT/1.8)
+        buttons = [play_button]
+        for button in buttons:
+            button.draw(screen)
 
+        key = pygame.key.get_pressed()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if play_button.checkForClick(mouse=pygame.mouse.get_pos()):
+                    gameplay(run, cursor, df)
+            if event.type == pygame.MOUSEMOTION:
+                for button in buttons:
+                    button.change_color(mouse=pygame.mouse.get_pos())
+
+        cursor = check_cursor(cursor)
+        pygame.display.update()
+        pygame.display.flip()
+
+
+
+
+def gameplay(run, cursor, df):
+    while run:
+        screen.fill((235, 132, 250))
+        key = pygame.key.get_pressed()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    cursor -= 1
+
+                elif event.key == pygame.K_RIGHT or event.key == pygame.K_RETURN:
+                    cursor += 1
+
+                elif event.key == pygame.K_BACKSPACE:
+
+                    if len(df.at[cursor, "Answer"]) > 1:
+                        df.at[cursor, "Answer"] = df.at[cursor, "Answer"][:-1]
+                elif event.key == pygame.K_1:
+                    print(df)
+                elif event.unicode.isalpha():
+                    df.at[cursor, "Answer"] += event.unicode
+                else:
+                    print("Wrong input!")
+
+        #df = change_to_lowercase(df)
+        cursor = check_cursor(cursor)
+
+
+
+
+        print_categories_and_answers()
+        print_cursor(df)
+
+
+        pygame.display.update()
+        pygame.display.flip()
+
+
+menu(run, cursor, df)
 pygame.quit()
