@@ -1,0 +1,349 @@
+acacia
+ageratum
+aloe vera
+almond tree
+alstroemeria
+amaranth
+anemone
+angelica
+apple tree
+apricot tree
+arugula
+ash tree
+asparagus
+aster
+avocado tree
+azalea
+baby’s breath
+bamboo
+banana plant
+basil
+bay laurel
+bean plant
+bee balm
+begonia
+bell pepper
+birch
+black eyed susan
+blackberry bush
+blackcurrant
+bloodroot
+bluebell
+blueberry bush
+borage
+bottlebrush
+bougainvillea
+broccoli
+brussels sprouts
+buckeye tree
+buckwheat
+buttercup
+buttonbush
+cabbage
+cactus
+calendula
+camellia
+camphor tree
+canna lily
+cantaloupe
+caper bush
+caraway
+cardamom
+carnation
+carob tree
+carrot
+cassava
+catnip
+cauliflower
+cedar
+celery
+chamomile
+chard
+cherry blossom
+cherry tree
+chestnut tree
+chickpea plant
+chicory
+chili plant
+chive
+chrysanthemum
+cilantro
+cinnamon tree
+cistus
+citrus tree
+clematis
+clover
+clove tree
+coconut palm
+coffee plant
+columbine
+comfrey
+coneflower
+coriander
+corn
+cotton plant
+cowslip
+cranberry
+creeping jenny
+cress
+crocosmia
+crocus
+cucumber
+currant bush
+cyclamen
+cypress
+daffodil
+dahlia
+daisy
+dandelion
+date palm
+delphinium
+dewberry
+dianthus
+dill
+dogwood
+dragon tree
+durian tree
+edelweiss
+elderberry
+elephant ear
+elm tree
+eucalyptus
+evening primrose
+fava bean
+fennel
+fern
+fig tree
+firethorn
+flame tree
+flax
+freesia
+fringe tree
+fuchsia
+forget-me-not
+foxglove
+garbanzo bean
+gardenia
+garlic
+gentian
+geranium
+germander
+ginger
+ginkgo
+ginseng
+gladiolus
+goldenrod
+gooseberry
+gourd
+grape hyacinth
+grapevine
+grass
+green bean
+guava tree
+hackberry
+hazelnut tree
+heather
+hebe
+hemlock
+hemp
+henna
+hibiscus
+hickory tree
+holly
+honeysuckle
+hops
+horseradish
+hosta
+hyacinth
+hydrangea
+ice plant
+indian paintbrush
+indian fig
+indian gooseberry
+indigo
+iris
+ironwood
+ivy
+jackfruit tree
+jasmine
+jatropha
+jicama
+juniper
+kale
+kauri tree
+kidney bean
+kiwifruit vine
+knapweed
+kudzu
+kumquat
+laburnum
+lady’s mantle
+lamb’s ear
+lantana
+lavender
+leek
+lemon balm
+lemon tree
+lentil plant
+lettuce
+licorice root
+lime tree
+linden tree
+lingonberry
+lilac
+lily
+lily of the valley
+linden
+loquat
+lotus
+lovage
+luffa
+lungwort
+lupine
+magnolia
+mahogany
+maize
+mallow
+mango tree
+maple tree
+marigold
+marjoram
+melon
+mesquite
+milk thistle
+milkweed
+mint
+mistletoe
+mock orange
+moringa
+morning glory
+moss
+mulberry tree
+mullein
+mushroom
+mustard plant
+myrrh
+myrtle
+nandina
+nasturtium
+neem tree
+nettle
+new zealand flax
+nigella
+nutmeg tree
+oak tree
+oat grass
+oats
+okra
+olive tree
+onion
+opium poppy
+orange tree
+orchid
+oregano
+papaya tree
+parsley
+parsnip
+passionflower
+pea plant
+peach tree
+peanut plant
+pear tree
+pecan tree
+pelargonium
+peony
+pepper plant
+peppermint
+persimmon tree
+petunia
+pine tree
+pineapple plant
+pink lady’s slipper
+pistachio tree
+plantain
+plum tree
+poinsettia
+pokeweed
+pomegranate
+pondweed
+poppy
+potato
+primrose
+pumpkin
+purslane
+quince
+radicchio
+radish
+ragweed
+raspberry bush
+redbud tree
+rhododendron
+rhubarb
+rice
+rose
+rosemary
+rowan tree
+rue
+rye
+sage
+sago palm
+sandalwood
+sassafras
+savory
+scallion
+sea holly
+seaweed
+shallot
+snapdragon
+snowdrop
+sorrel
+soybean
+spearmint
+spider plant
+spinach
+spruce
+squash
+star anise
+starfruit
+stevia
+strawberry
+sugarcane
+sumac
+sunflower
+sweet pea
+sweet potato
+sycamore
+tamarind
+tansy
+tarragon
+tea plant
+thistle
+thyme
+tobacco
+tomato
+tulip
+turnip
+turmeric
+vanilla orchid
+venus flytrap
+verbena
+viburnum
+violet
+virginia creeper
+walnut tree
+watercress
+water hyacinth
+water lily
+watermelon
+wheat
+whitebeam
+willow
+wintergreen
+wisteria
+witch hazel
+wolfberry
+yam
+yarrow
+yellow dock
+yucca
+zinnia

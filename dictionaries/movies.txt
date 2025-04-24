@@ -1,0 +1,797 @@
+12 angry men
+2001: a space odyssey
+a clockwork orange
+a nightmare on elm street
+a quiet place
+a streetcar named desire
+alien
+aliens
+amélie
+american beauty
+american history x
+american psycho
+annihilation
+apocalypse now
+arrival
+avatar
+back to the future
+barry lyndon
+batman begins
+beetlejuice
+before sunrise
+big fish
+blade runner
+blade runner 2049
+blood diamond
+boogie nights
+braveheart
+brokeback mountain
+call me by your name
+casino
+casino royale
+chinatown
+citizen kane
+city of god
+clueless
+coco
+crash
+crazy rich asians
+crouching tiger, hidden dragon
+dallas buyers club
+dances with wolves
+dark knight
+dead poets society
+die hard
+district 9
+django unchained
+doctor strange
+donnie darko
+drive
+dune
+dunkirk
+e.t. the extra-terrestrial
+edge of tomorrow
+edward scissorhands
+el laberinto del fauno
+emma
+eternal sunshine of the spotless mind
+everything everywhere all at once
+ex machina
+fargo
+fight club
+finding nemo
+forrest gump
+full metal jacket
+get out
+ghostbusters
+gladiator
+gone girl
+gone with the wind
+good will hunting
+goodfellas
+gran torino
+gravity
+green book
+groundhog day
+guardians of the galaxy
+hacksaw ridge
+halloween
+hereditary
+her
+high noon
+home alone
+hot fuzz
+hotel rwanda
+how to train your dragon
+howl's moving castle
+hustle
+i, tonya
+in bruges
+inception
+indiana jones and the last crusade
+indiana jones and the temple of doom
+inglourious basterds
+inside out
+interstellar
+into the wild
+it follows
+jaws
+jojo rabbit
+joker
+jurassic park
+kill bill: volume 1
+kill bill: volume 2
+king kong
+knives out
+l.a. confidential
+la la land
+lady bird
+lawrence of arabia
+leon: the professional
+les misérables
+life of pi
+lincoln
+little miss sunshine
+logan
+lord of the rings: fellowship of the ring
+lord of the rings: return of the king
+lord of the rings: two towers
+lost in translation
+mad max: fury road
+memento
+metropolis
+midnight in paris
+midsommar
+million dollar baby
+misery
+mission: impossible - fallout
+molly's game
+moneyball
+moonlight
+moulin rouge!
+mulholland drive
+my neighbor totoro
+no country for old men
+nomadland
+north by northwest
+oldboy
+once upon a time in hollywood
+once upon a time in the west
+one flew over the cuckoo's nest
+oppenheimer
+pan's labyrinth
+parasite
+pulp fiction
+psycho
+raging bull
+raiders of the lost ark
+rain man
+ratatouille
+rear window
+rebecca
+requiem for a dream
+reservoir dogs
+rocky
+rogue one
+roman holiday
+room
+saving private ryan
+scarface
+schindler's list
+scott pilgrim vs. the world
+se7en
+sharknado
+shaun of the dead
+shawkshank redemption
+shutter island
+sicario
+silver linings playbook
+singin' in the rain
+skyfall
+slumdog millionaire
+snatch
+snowpiercer
+social network
+some like it hot
+sound of music
+spider-man: into the spider-verse
+spirited away
+spotlight
+stand by me
+star wars: a new hope
+star wars: empire strikes back
+star wars: return of the jedi
+stardust
+sunset boulevard
+superbad
+tangled
+taxi driver
+tenet
+terminator
+terminator 2: judgment day
+the avengers
+the big lebowski
+the breakfast club
+the dark knight
+the dark knight rises
+the departed
+the empire strikes back
+the exorcist
+the french connection
+the godfather
+the godfather part ii
+the grand budapest hotel
+the green mile
+the hateful eight
+the incredibles
+the irishman
+the king’s speech
+the lion king
+the matrix
+the nice guys
+the notebook
+the pianist
+the prestige
+the princess bride
+the revenant
+the shawshank redemption
+the shining
+the silence of the lambs
+the sixth sense
+the social network
+the sting
+the thing
+the truman show
+the usual suspects
+the wolf of wall street
+there will be blood
+titanic
+to kill a mockingbird
+top gun
+toy story
+trainspotting
+true grit
+unforgiven
+up
+v for vendetta
+vertigo
+wall-e
+whiplash
+willy wonka & the chocolate factory
+winter’s bone
+witness
+wizard of oz
+wolf of wall street
+wonder woman
+zodiac
+12 years a slave
+1917
+21 jump street
+28 days later
+3 idiots
+300
+8 mile
+a beautiful mind
+a few good men
+a star is born
+aladdin
+all quiet on the western front
+almost famous
+amadeus
+american graffiti
+an american werewolf in london
+animal house
+annie hall
+apocalypto
+argo
+armageddon
+as good as it gets
+austin powers: international man of mystery
+avatar: the way of water
+avengers: endgame
+avengers: infinity war
+babe
+baby driver
+back to the future part ii
+barbie
+basic instinct
+batman
+beauty and the beast
+before sunset
+being john malkovich
+ben-hur
+big
+birdman
+black panther
+black swan
+blazing saddles
+blue velvet
+bonnie and clyde
+boyhood
+bridesmaids
+brooklyn
+butch cassidy and the sundance kid
+captain america: civil war
+captain phillips
+carrie
+cast away
+catch me if you can
+children of men
+clerks
+close encounters of the third kind
+cloud atlas
+collateral
+coraline
+crazy stupid love
+creed
+crimson peak
+dazed and confused
+deadpool
+dear evan hansen
+despicable me
+devil wears prada
+dirty dancing
+do the right thing
+doctor zhivago
+dog day afternoon
+double indemnity
+dr. strangelove
+elysium
+erin brockovich
+escape from new york
+eyes wide shut
+face/off
+fantastic mr. fox
+fast times at ridgemont high
+ferris bueller’s day off
+field of dreams
+first man
+fistful of dollars
+flight
+for a few dollars more
+foxcatcher
+friday
+frozen
+fruitvale station
+fury
+gandhi
+gangs of new york
+garden state
+gattaca
+gettysburg
+ghost
+girl with the dragon tattoo
+glengarry glen ross
+godzilla
+goldfinger
+good morning, vietnam
+gravity falls
+grease
+great gatsby
+green lantern
+guardians of the galaxy vol. 2
+hairspray
+half nelson
+hancock
+hangover
+hannah and her sisters
+happy gilmore
+hard candy
+harry potter and the chamber of secrets
+harry potter and the deathly hallows
+harry potter and the prisoner of azkaban
+heat
+heathers
+hell or high water
+hidden figures
+high fidelity
+hitch
+hocus pocus
+hunger games
+hunt for red october
+i am legend
+i, robot
+in the heat of the night
+in the name of the father
+independence day
+inside man
+insidious
+iron man
+it
+it’s a wonderful life
+jackie brown
+jumanji
+jungle book
+juno
+jurassic world
+kick-ass
+killing of a sacred deer
+kingpin
+kubo and the two strings
+kung fu panda
+labyrinth
+lady and the tramp
+last samurai
+legally blonde
+life of brian
+limitless
+lincoln lawyer
+little women
+looper
+lost world: jurassic park
+love actually
+magnolia
+man on fire
+manchester by the sea
+manhattan
+master and commander
+mean girls
+meet the parents
+men in black
+midnight cowboy
+milk
+minority report
+miracle
+mission: impossible
+moana
+monsters, inc.
+monty python and the holy grail
+moon
+mr. & mrs. smith
+mystic river
+napoleon dynamite
+network
+nightcrawler
+no time to die
+notting hill
+ocean’s eleven
+office space
+old school
+on the waterfront
+once
+out of sight
+paddington
+pale rider
+patton
+pearl harbor
+phantom thread
+pineapple express
+pirates of the caribbean: curse of the black pearl
+pitch perfect
+platoon
+point break
+predator
+pretty woman
+pride and prejudice
+princess mononoke
+prometheus
+punch-drunk love
+pursuit of happyness
+quantum of solace
+rambo
+ready player one
+red dragon
+remember the titans
+rescue dawn
+rise of the planet of the apes
+robin hood: prince of thieves
+robocop
+rocketeer
+rush
+rushmore
+scent of a woman
+scream
+searching
+selma
+sense and sensibility
+serenity
+seven samurai
+sex and the city
+shame
+shape of water
+shooter
+sideways
+signs
+silence
+sin city
+sister act
+sleepy hollow
+slither
+smokin’ aces
+snow white and the seven dwarfs
+solaris
+something’s gotta give
+southpaw
+speed
+spider-man
+spirits of the air
+splendor in the grass
+spotlight
+spring breakers
+st. elmo’s fire
+star trek
+starship troopers
+step brothers
+straight outta compton
+stranger than fiction
+sully
+sunshine
+super 8
+superman
+suspiria
+sweeney todd
+taken
+tale of two sisters
+tangerine
+tarzan
+the addams family
+the adjustment bureau
+the alamo
+the artist
+the assassination of jesse james
+the babadook
+the banshees of inisherin
+the beach
+the best years of our lives
+the big short
+the birdcage
+the blair witch project
+the bourne identity
+the bourne ultimatum
+the bridges of madison county
+the butterfly effect
+the cabin in the woods
+the cable guy
+the caine mutiny
+the candidate
+the conjuring
+the constant gardener
+the count of monte cristo
+the covenant
+the craft
+the curious case of benjamin button
+the da vinci code
+the damned united
+the darjeeling limited
+the day after tomorrow
+the dead zone
+the deer hunter
+the descent
+the devil’s advocate
+the dirty dozen
+the disaster artist
+the diving bell and the butterfly
+the doors
+the drop
+the edge
+the elephant man
+the english patient
+the equalizer
+the evil dead
+the fall
+the fault in our stars
+the fifth element
+the fighter
+the firm
+the first purge
+the fountain
+the fugitive
+the full monty
+the game
+the general
+the gift
+the girl next door
+the girl with all the gifts
+the glass castle
+the goonies
+the graduate
+the great escape
+the grey
+the grudge
+the handmaiden
+the hangover
+the haunting
+the help
+the hills have eyes
+the hobbit: an unexpected journey
+the holiday
+the host
+the house
+the hunger
+the hunt
+the hurt locker
+the illusionist
+the imitation game
+the impossible
+the insider
+the interview
+the invisible man
+the invitation
+the iron giant
+the island
+the italian job
+the jerk
+the judge
+the jungle book
+the karate kid
+the killing
+the king
+the kingdom
+the last duel
+the last king of scotland
+the last of the mohicans
+the last picture show
+the legend of tarzan
+the lego movie
+the life aquatic with steve zissou
+the lighthouse
+the lincoln lawyer
+the little mermaid
+the lives of others
+the lobster
+the long goodbye
+the longest yard
+the lost boys
+the machinist
+the man from u.n.c.l.e.
+the man who knew too much
+the man with the golden gun
+the mask
+the master
+the matrix reloaded
+the maze runner
+the meaning of life
+the menu
+the mist
+the motorcycle diaries
+the mummy
+the muppets
+the naked gun
+the neverending story
+the new world
+the night of the hunter
+the nightmare before christmas
+the northman
+the number 23
+the omen
+the others
+the outlaw josey wales
+the outsiders
+the pacifier
+the painted veil
+the patriot
+the perfect storm
+the perks of being a wallflower
+the phantom of the opera
+the place beyond the pines
+the player
+the post
+the power of the dog
+the predator
+the prince of egypt
+the princess diaries
+the producers
+the proposition
+the purge
+the pursuit of happyness
+the queen
+the quiet american
+the raid
+the reader
+the red violin
+the remains of the day
+the replacement killers
+the ring
+the road
+the rock
+the rocky horror picture show
+the royal tenenbaums
+the rundown
+the saint
+the sandlot
+the santa clause
+the score
+the secret life of walter mitty
+the secret window
+the sentinel
+the seven year itch
+the shallows
+the shape of water
+the shootist
+the siege
+the simpsons movie
+the sisterhood of the traveling pants
+the skeleton key
+the skin i live in
+the skulls
+the sound of music
+the space between us
+the spectacular now
+the spy who loved me
+the square
+the station agent
+the stepford wives
+the sting
+the strangers
+the talented mr. ripley
+the ten commandments
+the terminal
+the texas chainsaw massacre
+the theory of everything
+the thin red line
+the third man
+the thomas crown affair
+the town
+the transporter
+the treasure of the sierra madre
+the tree of life
+the trial
+the trip
+the trouble with harry
+the unbearable weight of massive talent
+the untouchables
+the village
+the visit
+the wailing
+the walk
+the war of the worlds
+the warriors
+the watch
+the waterboy
+the way back
+the wedding crashers
+the wedding planner
+the whale
+the white ribbon
+the wicker man
+the wild bunch
+the wind rises
+the witch
+the world is not enough
+the wrestler
+the wrong man
+the yards
+the young victoria
+the zero theorem
+the zone of interest
+there’s something about mary
+this is spinal tap
+this means war
+thor
+three billboards outside ebbing, missouri
+tinker tailor soldier spy
+tootsie
+total recall
+touch of evil
+training day
+transformers
+treasure planet
+tropic thunder
+true lies
+true romance
+truman show
+tucker and dale vs. evil
+twilight
+twister
+u-571
+unbreakable
+uncut gems
+under the skin
+underworld
+unknown
+valkyrie
+vanilla sky
+venom
+vicky cristina barcelona
+victor/victoria
+wall street
+wanted
+war horse
+wargames
+watchmen
+waterworld
+we need to talk about kevin
+west side story
+what lies beneath
+what we do in the shadows
+what’s eating gilbert grape
+when harry met sally
+white house down
+who framed roger rabbit
+wild
+wind river
+wings of desire
+winnie the pooh
+winter’s tale
+without a paddle
+witness for the prosecution
+world war z
+wreck-it ralph
+x-men
+y tu mamá también
+yesterday
+you’ve got mail
+zathura
+zero dark thirty
+zombieland
+zoolander

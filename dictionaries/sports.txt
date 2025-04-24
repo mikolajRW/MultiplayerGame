@@ -1,0 +1,317 @@
+archery
+athletics
+badminton
+baseball
+basketball
+biathlon
+bobsleigh
+boxing
+canoeing
+cricket
+curling
+cycling
+darts
+diving
+equestrian
+fencing
+field hockey
+figure skating
+football
+golf
+gymnastics
+handball
+ice hockey
+judo
+karate
+kayaking
+lacrosse
+luge
+marathon
+mixed martial arts
+motocross
+netball
+polo
+rowing
+rugby
+sailing
+shooting
+skateboarding
+skiing
+snowboarding
+soccer
+softball
+speed skating
+squash
+sumo wrestling
+surfing
+swimming
+synchronized swimming
+table tennis
+taekwondo
+tennis
+triathlon
+volleyball
+water polo
+weightlifting
+wrestling
+adaptive basketball
+adaptive skiing
+adaptive swimming
+aerobatic flying
+air racing
+alpine skiing
+american football
+aquathlon
+arm wrestling
+artistic gymnastics
+aussie rules football
+auto racing
+balance beam
+ball hockey
+bandy
+bare knuckle boxing
+barrel racing
+base jumping
+beach soccer
+beach volleyball
+belt wrestling
+bicycle motocross
+billiards
+bocce ball
+bodyboarding
+bodybuilding
+bossaball
+bouldering
+bowling
+box lacrosse
+brazilian jiu-jitsu
+breakdancing
+bull riding
+bungee jumping
+camel racing
+canoe polo
+canoe slalom
+capoeira
+cheerleading
+chess boxing
+cliff diving
+climbing
+cockfighting
+competitive dance
+competitive eating
+cornhole
+croquet
+cross country running
+cross country skiing
+crossfit
+curling
+cycle speedway
+cyclo-cross
+decathlon
+disc golf
+dodgeball
+dog sledding
+double dutch
+downhill mountain biking
+drag racing
+dragon boat racing
+dressage
+drifting
+duathlon
+endurance racing
+enduro
+esports
+eventing
+extreme ironing
+fell running
+field archery
+field lacrosse
+finswimming
+fistball
+flag football
+floor hockey
+floorball
+folk wrestling
+formula racing
+freestyle bmx
+freestyle motocross
+freestyle skiing
+freestyle swimming
+frisbee
+futsal
+gaelic football
+gliding
+go karting
+goalball
+grappling
+greco-roman wrestling
+hammer throw
+hang gliding
+harness racing
+heptathlon
+high diving
+high jump
+hockey
+horse racing
+horseshoes
+hurling
+hurdles
+hydroplane racing
+ice climbing
+ice dancing
+ice swimming
+indoor cricket
+indoor soccer
+inline hockey
+inline skating
+jai alai
+javelin throw
+jet ski racing
+jiu-jitsu
+jousting
+jump rope
+kabaddi
+kendo
+kettlebell lifting
+kickboxing
+kiteboarding
+kitesurfing
+korfball
+kyokushin karate
+lawn bowling
+long jump
+luge
+marathon swimming
+masters swimming
+medieval combat
+mind sports
+mini golf
+mixed climbing
+modern pentathlon
+monster truck racing
+motogp
+motorcycle racing
+mountain biking
+mountaineering
+muay thai
+naginatajutsu
+nordic combined
+nordic skiing
+obstacle course racing
+octopush
+orienteering
+paddleboarding
+padel
+paintball
+parachuting
+paragliding
+paralympic archery
+paralympic cycling
+paralympic swimming
+parkour
+pentathlon
+pétanque
+pickleball
+platform diving
+pole vault
+polo
+pool
+powerboat racing
+powerlifting
+pro wrestling
+quidditch
+race walking
+racketball
+rallycross
+rallying
+real tennis
+recreational diving
+rhythmic gymnastics
+ringette
+road cycling
+rock climbing
+rock fishing
+rodeo
+roller derby
+roller hockey
+roller skating
+rounders
+rowing
+rugby league
+rugby sevens
+rugby union
+sambo
+sandboarding
+savate
+sepak takraw
+shinny
+shinty
+shooting
+shot put
+show jumping
+shuffleboard
+sidecar racing
+skeleton
+ski jumping
+skijoring
+skydiving
+slalom canoeing
+slalom skiing
+sledding
+snooker
+snowboard cross
+snowmobiling
+snowshoeing
+soft tennis
+speed climbing
+speedcubing
+sport climbing
+sport fishing
+sport stacking
+sprint car racing
+sprint running
+steeplechase
+stickball
+stock car racing
+street luge
+sumo
+superbike racing
+supercross
+surf lifesaving
+swamp soccer
+synchronized skating
+table hockey
+tag rugby
+tai chi
+takraw
+target archery
+team handball
+teqball
+test cricket
+throwball
+tough mudder
+touring car racing
+track cycling
+track running
+trampoline
+trap shooting
+tug of war
+twenty20 cricket
+ultra marathon
+underwater hockey
+underwater rugby
+vault
+vigoro
+wakeboarding
+walking football
+water skiing
+wheelchair basketball
+wheelchair fencing
+wheelchair rugby
+windsurfing
+wing chun
+wingsuit flying
+wushu
+yachting
+yoga
+zorbing

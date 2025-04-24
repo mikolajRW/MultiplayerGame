@@ -2,6 +2,7 @@ import pygame
 import pandas as pd
 import random
 import string
+import os
 
 pygame.init()
 
@@ -35,8 +36,6 @@ print(df)
 
 cursor = 0
 run = True
-
-
 
 
 class Button():
@@ -84,8 +83,8 @@ def print_categories_and_answers():
         draw_text(df.iloc[i]["Answer"], game_font, answer_color, df.iloc[i]["PosX"], df.iloc[i]["PosY"] + SCREEN_HEIGHT/8)
 
 
-def print_cursor(game_array):
-    screen.blit(player_img, (game_array.iloc[cursor]["PosX"], game_array.iloc[cursor]["PosY"] + SCREEN_HEIGHT/4.5))
+def print_cursor(cursor_temp, game_array):
+    screen.blit(player_img, (game_array.iloc[cursor_temp]["PosX"], game_array.iloc[cursor_temp]["PosY"] + SCREEN_HEIGHT/4.5))
 
 
 def check_cursor(cursor_f):
@@ -115,10 +114,37 @@ def change_to_lowercase(game_array):
     return game_array
 
 
+def check_answers(game_array):
+    for _, position in game_array.iterrows():
+        if position["Category"] == "Country":
+            check_file("dictionaries/countries.txt", position["Answer"])
+        elif position["Category"] == "City":
+            check_file("dictionaries/cities.txt", position["Answer"])
+        elif position["Category"] == "Animal":
+            check_file("dictionaries/animals.txt", position["Answer"])
+        elif position["Category"] == "Plant":
+            check_file("dictionaries/plants.txt", position["Answer"])
+        elif position["Category"] == "Thing":
+            check_file("dictionaries/things.txt", position["Answer"])
+        elif position["Category"] == "Occupation":
+            check_file("dictionaries/occupations.txt", position["Answer"])
+        elif position["Category"] == "Movie":
+            check_file("dictionaries/movies.txt", position["Answer"])
+        elif position["Category"] == "Sport":
+            check_file("dictionaries/sports.txt", position["Answer"])
+
+
+def check_file(filepath, target_value):
+    with open(filepath, 'r') as file:
+        valid_answers = {line.strip().lower() for line in file}
+
+    if target_value.lower() in valid_answers:
+        print("10 points!")
+    else:
+        print("Wrong answer.")
+
+
 define_positions()
-
-
-
 
 
 def menu(run, cursor, df):
@@ -151,8 +177,6 @@ def menu(run, cursor, df):
         pygame.display.flip()
 
 
-
-
 def gameplay(run, cursor, df):
     while run:
         screen.fill((235, 132, 250))
@@ -174,7 +198,9 @@ def gameplay(run, cursor, df):
                         df.at[cursor, "Answer"] = df.at[cursor, "Answer"][:-1]
                 elif event.key == pygame.K_1:
                     print(df)
-                elif event.unicode.isalpha():
+                elif event.key == pygame.K_2:
+                    check_answers(df)
+                elif event.unicode.isalpha() or event.unicode.isspace():
                     df.at[cursor, "Answer"] += event.unicode
                 else:
                     print("Wrong input!")
@@ -186,11 +212,13 @@ def gameplay(run, cursor, df):
 
 
         print_categories_and_answers()
-        print_cursor(df)
+        print_cursor(cursor, df)
 
 
         pygame.display.update()
         pygame.display.flip()
+
+    return cursor
 
 
 menu(run, cursor, df)
