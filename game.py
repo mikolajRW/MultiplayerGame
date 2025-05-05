@@ -2,8 +2,345 @@ import pygame
 import pandas as pd
 import random
 import string
+import socket
 import os
+import threading
 
+
+MAX_LOBBY = 4
+
+from pyexpat.errors import messages
+
+# SET GLOBAL VARIABLES
+pygame.init()
+
+SCREEN_WIDTH = 1000
+SCREEN_HEIGHT = 600
+
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+player = pygame.Rect((30, 250, 40, 40))
+player_img = pygame.image.load("images/cursor.png")
+player_img = pygame.transform.scale(player_img, (40, 40))
+# player.x = 150
+
+player_rect = player_img.get_rect(topleft=(30, 250))
+
+category_color = (255, 0, 0)
+answer_color = (255, 255, 255)
+
+game_font = pygame.font.Font(None, 50)
+text_font = pygame.font.SysFont("Arial", 70)
+
+random_letter = random.choice(string.ascii_letters)
+
+letters = [char for char in string.ascii_uppercase if char not in {'Q', 'X'}]
+
+game_categories = ["Country", "City", "Animal", "Plant", "Thing", "Occupation", "Movie", "Sport"]
+game_answers = [random.choice(letters)] * len(game_categories)
+positions_x = [1.0] * len(game_categories)
+positions_y = [1.0] * len(game_categories)
+df = pd.DataFrame({"Category": game_categories, "Answer": game_answers, "PosX:": positions_x, "PosY": positions_y})
+cursor = 0
+run = True
+
+class Establish_Connection:
+    messages = []
+    BUFFER = 1024
+    def listen(self):
+        while True:
+            try:
+                msg = self.client.recv(self.BUFFER).decode()
+                self.messages.append(msg)
+            except:
+                break
+
+    def __init__(self, HOST, PORT):
+        # IP NASZEJ MASZYNY
+        self.HOST = HOST
+        self.PORT = PORT
+        self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.client.connect((HOST, PORT))
+        threading.Thread(target=self.listen, daemon=True).start()
+    def send(self, data):
+        try:
+            self.client.sendall(data.encode())
+        except Exception as e:
+            print(f"Error - {e}")
+
+    def get_latest_message(self):
+        return self.messages[-1] if self.messages else None
+
+class Game:
+    def __init__(self):
+        self.define_positions()
+        print(df)
+        self.menu(run, cursor, df)
+
+
+
+    def define_positions(self):
+        for index in range(len(df)):
+            if index < 4:
+                df.at[index, "PosX"] = SCREEN_WIDTH / 20 + SCREEN_WIDTH / 4 * index
+                df.at[index, "PosY"] = SCREEN_HEIGHT / 6
+            else:
+                df.at[index, "PosX"] = SCREEN_WIDTH / 20 + SCREEN_WIDTH / 4 * (index - 4)
+                df.at[index, "PosY"] = SCREEN_HEIGHT / 1.7
+
+    def print_categories_and_answers(self):
+        for i in range(len(df)):
+            self.draw_text(df.iloc[i]["Category"], game_font, category_color, df.iloc[i]["PosX"], df.iloc[i]["PosY"])
+            self.draw_text(df.iloc[i]["Answer"], game_font, answer_color, df.iloc[i]["PosX"],
+                      df.iloc[i]["PosY"] + SCREEN_HEIGHT / 8)
+
+    def print_cursor(self,cursor_temp, game_array):
+        screen.blit(player_img,
+                    (game_array.iloc[cursor_temp]["PosX"], game_array.iloc[cursor_temp]["PosY"] + SCREEN_HEIGHT / 4.5))
+
+    def check_cursor(self,cursor_f):
+        if cursor_f < 0:
+            cursor_f = 0
+        elif cursor_f > len(game_categories) - 1:
+            cursor_f -= 1
+
+        return cursor_f
+
+    def check_cursor_two(self, cursor_f):
+        if cursor_f < 0 or cursor_f > len(game_categories) - 1:
+            return False
+        else:
+            return True
+
+    def draw_text(self, text, font, text_col, x, y):
+        img = font.render(text, True, text_col)
+        screen.blit(img, (x, y))
+
+    def change_to_lowercase(self,game_array):
+        game_array["Answer"] = game_array["Answer"].str.lower()
+
+        return game_array
+
+    def check_answers(self, game_array):
+        for _, position in game_array.iterrows():
+            if position["Category"] == "Country":
+                self.check_file("dictionaries/countries.txt", position["Answer"])
+            elif position["Category"] == "City":
+                self.check_file("dictionaries/cities.txt", position["Answer"])
+            elif position["Category"] == "Animal":
+                self.check_file("dictionaries/animals.txt", position["Answer"])
+            elif position["Category"] == "Plant":
+                self.check_file("dictionaries/plants.txt", position["Answer"])
+            elif position["Category"] == "Thing":
+                self.check_file("dictionaries/things.txt", position["Answer"])
+            elif position["Category"] == "Occupation":
+                self.check_file("dictionaries/occupations.txt", position["Answer"])
+            elif position["Category"] == "Movie":
+                self.check_file("dictionaries/movies.txt", position["Answer"])
+            elif position["Category"] == "Sport":
+                self.check_file("dictionaries/sports.txt", position["Answer"])
+
+    def check_file(self, filepath, target_value):
+        with open(filepath, 'r') as file:
+            valid_answers = {line.strip().lower() for line in file}
+
+        if target_value.lower() in valid_answers:
+            print("10 points!")
+        else:
+            print("Wrong answer.")
+
+    def menu(self, run, cursor, df):
+        while run:
+            screen.fill((235, 132, 250))
+            menu_text = text_font.render("Menu", True, (0, 0, 0))
+            text_react = menu_text.get_rect(center=(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 10))
+            screen.blit(menu_text, text_react)
+            play_button = Button(width=SCREEN_WIDTH / 2, height=SCREEN_HEIGHT / 5, text="Play",
+                                 font=text_font, text_col=(100, 100, 100), x=SCREEN_WIDTH/2 - SCREEN_WIDTH/4,
+                                 y = SCREEN_HEIGHT - SCREEN_HEIGHT/1.33)
+            create_lobby_button = Button(width=SCREEN_WIDTH / 2, height=SCREEN_HEIGHT / 5, text="New Lobby",
+                                 font=text_font, text_col=(100, 100, 100), x=SCREEN_WIDTH/2 - SCREEN_WIDTH/4,
+                                 y = SCREEN_HEIGHT - SCREEN_HEIGHT/2)
+            join_lobby_button = Button(width=SCREEN_WIDTH / 2, height=SCREEN_HEIGHT / 5, text="Show Lobbies",
+                                 font=text_font, text_col=(100, 100, 100), x=SCREEN_WIDTH/2 - SCREEN_WIDTH/4,
+                                 y = SCREEN_HEIGHT - SCREEN_HEIGHT/4)
+            # exit_button = draw_text("EXIT", text_font, (255, 255, 255), SCREEN_WIDTH/2, SCREEN_HEIGHT/1.8)
+            buttons = [join_lobby_button, create_lobby_button, play_button]
+            for button in buttons:
+                button.draw(screen)
+
+            key = pygame.key.get_pressed()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if play_button.checkForClick(mouse=pygame.mouse.get_pos()):
+                        self.gameplay(run, cursor, df)
+                    if create_lobby_button.checkForClick(mouse=pygame.mouse.get_pos()):
+                        self.lobby_type = "START"
+                        self.enter_data(cursor)
+                    if join_lobby_button.checkForClick(mouse=pygame.mouse.get_pos()):
+                        self.lobby_type = "SHOW"
+                        self.enter_data(cursor)
+                if event.type == pygame.MOUSEMOTION:
+                    for button in buttons:
+                        button.change_color(mouse=pygame.mouse.get_pos())
+
+            cursor = self.check_cursor(cursor)
+            pygame.display.update()
+            pygame.display.flip()
+
+
+    def enter_data(self, cursor):
+        self.nickname = "Enter Nickname"
+        while run:
+            screen.fill((235, 132, 250))
+            nickname_text = text_font.render("Enter Nickname", True, (0, 0, 0))
+            nickname_rect = nickname_text.get_rect(center=(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 10))
+            screen.blit(nickname_text, nickname_rect)
+            nickname_button = Button(width=SCREEN_WIDTH / 2, height=SCREEN_HEIGHT / 5, text=self.nickname,
+                                 font=text_font, text_col=(100, 100, 100),
+                                 x=SCREEN_WIDTH / 2 - SCREEN_WIDTH / 4,
+                                 y=SCREEN_HEIGHT - SCREEN_HEIGHT / 2)
+            lobby_button = Button(width=SCREEN_WIDTH / 4, height=SCREEN_HEIGHT / 5, text=self.lobby_type,
+                                 font=text_font, text_col=(100, 100, 100),
+                                 x=SCREEN_WIDTH / 4 - SCREEN_WIDTH / 8,
+                                 y=SCREEN_HEIGHT - SCREEN_HEIGHT / 4)
+            buttons = [nickname_button, lobby_button]
+            for button in buttons:
+                button.draw(screen)
+            key = pygame.key.get_pressed()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.menu(run, cursor, df)
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if lobby_button.checkForClick(mouse=pygame.mouse.get_pos()):
+                        self.create_lobby()
+                if event.type == pygame.KEYDOWN:
+                    if event.unicode.isalpha() or event.unicode.isspace() or event.unicode.isdigit():
+                        if self.nickname == "Enter Nickname":
+                            self.nickname = event.unicode
+                        else:
+                            self.nickname += event.unicode
+                    elif event.key == pygame.K_BACKSPACE and self.nickname != "Enter Nickname":
+                        self.nickname = self.nickname[:-1]
+                        if len(self.nickname) == 0:
+                            self.nickname = "Enter Nickname"
+                    else:
+                        print("Wrong Input")
+            cursor = self.check_cursor(cursor)
+
+            pygame.display.update()
+            pygame.display.flip()
+
+    def create_lobby(self):
+        HOST = "192.168.0.66"
+        PORT = 61111
+        connection = Establish_Connection(HOST, PORT)
+        if self.lobby_type == "START":
+            connection.send(f"{self.lobby_type} {self.nickname}")
+        elif self.lobby_type == "SHOW":
+            connection.send(f"{self.lobby_type}")
+        #print(connection.messages)
+        join_button = None
+        while run:
+            #print(f"latest message: {connection.get_latest_message()}")
+           # print(connection.messages.split(" "))
+            screen.fill((235, 132, 250))
+            print(connection.get_latest_message())
+            pos = 50
+            last_msg = str(connection.get_latest_message()).split(" ")
+
+            if self.lobby_type == "START":
+                self.draw_text("Amount of Player", game_font, category_color, SCREEN_WIDTH / 2, SCREEN_HEIGHT - SCREEN_HEIGHT / 4)
+                self.draw_text(f"{last_msg[0]}/{MAX_LOBBY}", game_font, category_color, SCREEN_WIDTH / 2, SCREEN_HEIGHT - SCREEN_HEIGHT / 6)
+                self.draw_text("Players", game_font, category_color, SCREEN_WIDTH / 2, 0)
+                for player_nick in last_msg[1:]:
+                    self.draw_text(player_nick, game_font, category_color, SCREEN_WIDTH / 2, pos)
+                    pos += 50
+            elif self.lobby_type == "SHOW" and connection.get_latest_message() is not None:
+                join_button = Button(width=SCREEN_WIDTH / 25, height=SCREEN_HEIGHT / 25, text="Join",
+                                     font=text_font, text_col=(100, 100, 100),
+                                     x=SCREEN_WIDTH / 10 + SCREEN_WIDTH / 1.25,
+                                     y=pos)
+                for msg in last_msg[:-1]:
+                    msg = msg.split("-")
+                    self.draw_text(F"Lobby ID: {msg[0]}, amount of players: {len(msg) - 1}/{MAX_LOBBY}",
+                                        game_font, category_color, SCREEN_WIDTH / 10, pos)
+                    pos += 50
+            elif self.lobby_type == "SHOW_LOBBY":
+                for msg in last_msg[:-1]:
+                    msg = msg.split("-")
+                    self.draw_text(F"Lobby ID: {msg[0]}, amount of players: {len(msg) - 1}/{MAX_LOBBY}",
+                                        game_font, category_color, SCREEN_WIDTH / 10, pos)
+                    pos += 50
+                #for key, value in dict(connection.get_latest_message()).items():
+                 #   self.draw_text(F"Lobby ID: {key}, amount of players: {len(value)}/{MAX_LOBBY}",
+                  #                 game_font, category_color, SCREEN_WIDTH / 2, pos)
+                   # pos += 50
+            play_button = Button(width=SCREEN_WIDTH / 2, height=SCREEN_HEIGHT / 5, text="Start Play",
+                                     font=text_font, text_col=(100, 100, 100),
+                                     x=SCREEN_WIDTH / 2 - SCREEN_WIDTH / 4,
+                                     y=SCREEN_HEIGHT - SCREEN_HEIGHT / 2)
+            buttons = [play_button, join_button]
+            for button in buttons:
+                if button is not None:
+                    button.draw(screen)
+            key = pygame.key.get_pressed()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.menu(run, cursor, df)
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if play_button.checkForClick(mouse=pygame.mouse.get_pos()):
+                        self.gameplay(run, cursor, df)
+                    if join_button.checkForClick(mouse=pygame.mouse.get_pos()):
+                        self.lobby_type="SHOW_LOBBY"
+                        connection.send(f"JOIN {last_msg[0][0]} {self.nickname}")
+
+            pygame.display.flip()
+
+
+    def gameplay(self, run, cursor, df):
+        while run:
+            screen.fill((235, 132, 250))
+            key = pygame.key.get_pressed()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.menu(run, cursor, df)
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_LEFT:
+                        cursor -= 1
+
+                    elif event.key == pygame.K_RIGHT or event.key == pygame.K_RETURN:
+                        cursor += 1
+
+                    elif event.key == pygame.K_BACKSPACE:
+
+                        if len(df.at[cursor, "Answer"]) > 1:
+                            df.at[cursor, "Answer"] = df.at[cursor, "Answer"][:-1]
+                    elif event.key == pygame.K_1:
+                        print(df)
+                    elif event.key == pygame.K_2:
+                        self.check_answers(df)
+                    elif event.unicode.isalpha() or event.unicode.isspace():
+                        df.at[cursor, "Answer"] += event.unicode
+                    else:
+                        print("Wrong input!")
+
+            # df = change_to_lowercase(df)
+            cursor = self.check_cursor(cursor)
+
+            self.print_categories_and_answers()
+            self.print_cursor(cursor, df)
+
+            pygame.display.update()
+            pygame.display.flip()
+
+        return cursor
+
+
+'''
 pygame.init()
 
 SCREEN_WIDTH = 1000
@@ -36,12 +373,14 @@ print(df)
 
 cursor = 0
 run = True
+'''
 
-
-class Button():
-    def __init__(self, width, height, text, font, text_col):
-        self.x = SCREEN_WIDTH/2 - SCREEN_WIDTH/4
-        self.y = SCREEN_HEIGHT/2 - SCREEN_HEIGHT/10
+class Button:
+    def __init__(self, width, height, text, font, text_col, x, y):
+        #self.x = SCREEN_WIDTH/2 - SCREEN_WIDTH/4
+        #self.y = SCREEN_HEIGHT/2 - SCREEN_HEIGHT/10
+        self.x = x
+        self.y = y
         self.width = width
         self.height = height
         self.text = text
@@ -57,16 +396,17 @@ class Button():
     def draw(self, screen):
         pygame.draw.rect(screen, self.color, (self.x, self.y, self.width, self.height))
         text = self.font.render(self.text, 1, self.text_col)
-        text_rect = text.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
+        text_rect = text.get_rect(center=(2*self.x, self.y + self.y/6))
         screen.blit(text, text_rect)
+
     def change_color(self, mouse):
-       if mouse[0] > self.x and mouse[0] < self.x + self.width and mouse[1] > self.y and mouse[1] < self.y + self.height:
+       if self.x < mouse[0] < self.x + self.width and self.y < mouse[1] < self.y + self.height:
             self.color = (255,255,255)
        else:
             self.color = (0,0,0)
 
 
-
+'''
 def define_positions():
     for index in range(len(df)):
         if index < 4:
@@ -144,8 +484,8 @@ def check_file(filepath, target_value):
         print("Wrong answer.")
 
 
-define_positions()
 
+define_positions()
 
 def menu(run, cursor, df):
     while run:
@@ -222,4 +562,6 @@ def gameplay(run, cursor, df):
 
 
 menu(run, cursor, df)
-pygame.quit()
+pygame.quit()'''
+
+game = Game()
