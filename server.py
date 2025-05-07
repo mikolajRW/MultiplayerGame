@@ -32,14 +32,21 @@ def handle_client(conn, addr):
                     for value in values:
                         all_lobbies += f"-{value}"
                     all_lobbies += " "
-                print(all_lobbies)
                 conn.sendall(f"{all_lobbies}".encode())
+            elif data.startswith("LOBBY_SHOW"):
+                _, lobby_id = data.split(" ")
+                players_in_lobby = f"{lobby_id}"
+                for value in lobbies[lobby_id]:
+                    players_in_lobby += f"-{value}"
+                    print(value)
+                print(players_in_lobby)
+                conn.sendall(f"{players_in_lobby}".encode())
             elif data.startswith("JOIN"):
                 _, lobby_id, nickname = data.split(" ")
-                if lobby_id in lobbies and len(lobbies[lobby_id]) < MAX_LOBBY:
+                if lobby_id in lobbies and len(lobbies[lobby_id]) <= MAX_LOBBY:
                     lobbies[lobby_id].append(nickname)
                     print(lobbies)
-                    conn.sendall("Joined".encode())
+                    conn.sendall(f"Joined {lobby_id}".encode())
                 else:
                     conn.sendall("Cannot join lobby".encode())
     except Exception as e:
