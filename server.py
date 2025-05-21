@@ -49,6 +49,25 @@ def handle_client(conn, addr):
                     conn.sendall(f"Joined {lobby_id}".encode())
                 else:
                     conn.sendall("Cannot join lobby".encode())
+            elif data.startswith("LEAVE"):
+                if current_lobby and nickname:
+                    if current_lobby in lobbies:
+                        if nickname in lobbies[current_lobby]:
+                            lobbies[current_lobby].remove(nickname)
+                            print(f"{nickname} left lobby {current_lobby}")
+
+                            # If lobby is empty after leaving, remove it
+                            if len(lobbies[current_lobby]) == 0:
+                                del lobbies[current_lobby]
+                                print(f"Lobby {current_lobby} removed (empty)")
+
+                        conn.sendall("LEFT_SUCCESSFULLY".encode())
+                        current_lobby = None
+                        nickname = None
+                    else:
+                        conn.sendall("LOBBY_NOT_FOUND".encode())
+                else:
+                    conn.sendall("NOT_IN_LOBBY".encode())
     except Exception as e:
         print(f"Error with client {addr}: {e}")
     finally:

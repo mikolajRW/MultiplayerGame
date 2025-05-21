@@ -169,22 +169,23 @@ class Game:
                 button.draw(screen)
 
             key = pygame.key.get_pressed()
+            mouse = pygame.mouse.get_pos()
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if play_button.checkForClick(mouse=pygame.mouse.get_pos()):
+                    if play_button.checkForClick(mouse):
                         self.gameplay(run, cursor, df)
-                    if create_lobby_button.checkForClick(mouse=pygame.mouse.get_pos()):
+                    if create_lobby_button.checkForClick(mouse):
                         self.lobby_type = "START"
                         self.enter_data(cursor)
-                    if join_lobby_button.checkForClick(mouse=pygame.mouse.get_pos()):
+                    if join_lobby_button.checkForClick(mouse):
                         self.lobby_type = "SHOW"
                         self.enter_data(cursor)
                 if event.type == pygame.MOUSEMOTION:
                     for button in buttons:
-                        button.change_color(mouse=pygame.mouse.get_pos())
+                        button.change_color(mouse)
 
             cursor = self.check_cursor(cursor)
             pygame.display.update()
@@ -234,7 +235,7 @@ class Game:
             pygame.display.flip()
 
     def create_lobby(self):
-        HOST = "192.168.224.1"
+        HOST = "localhost"
         PORT = 61111
         connection = Establish_Connection(HOST, PORT)
         if self.lobby_type == "START":
@@ -244,6 +245,8 @@ class Game:
         #print(connection.messages)
         join_button = None
         play_button = None
+        exit_button = None
+        in_lobby = False
         while run:
             #print(f"latest message: {connection.get_latest_message()}")
            # print(connection.messages.split(" "))
@@ -251,7 +254,22 @@ class Game:
             print(connection.get_latest_message())
             pos = 50
             last_msg = str(connection.get_latest_message()).split(" ")
+
+            if in_lobby:
+                exit_button = Button(
+                    width=SCREEN_WIDTH / 2,
+                    height=SCREEN_HEIGHT / 5,
+                    text="Exit Lobby",
+                    font=text_font,
+                    text_col=(100, 100, 100),
+                    x=SCREEN_WIDTH / 2 - SCREEN_WIDTH / 4,
+                    y=SCREEN_HEIGHT / 1.3
+                )
+            else:
+                exit_button = None
+
             if self.lobby_type == "START" and last_msg is not None:
+                in_lobby = True
                 self.draw_text("Amount of Player", game_font, category_color, SCREEN_WIDTH / 2, SCREEN_HEIGHT - SCREEN_HEIGHT / 4)
                 self.draw_text(f"{last_msg[0]}/{MAX_LOBBY}", game_font, category_color, SCREEN_WIDTH / 2, SCREEN_HEIGHT - SCREEN_HEIGHT / 6)
                 self.draw_text("Players", game_font, category_color, SCREEN_WIDTH / 2, 0)
@@ -266,6 +284,7 @@ class Game:
                                      y=SCREEN_HEIGHT - SCREEN_HEIGHT / 2)
 
             elif self.lobby_type == "SHOW" and connection.get_latest_message() is not None:
+                in_lobby = False
                 join_button = Button(width=SCREEN_WIDTH / 25, height=SCREEN_HEIGHT / 25, text="Join",
                                      font=text_font, text_col=(100, 100, 100),
                                      x=SCREEN_WIDTH / 10 + SCREEN_WIDTH / 1.25,
@@ -293,7 +312,7 @@ class Game:
                   #                 game_font, category_color, SCREEN_WIDTH / 2, pos)
                    # pos += 50
 
-            buttons = [play_button, join_button]
+            buttons = [play_button, join_button, exit_button]
             for button in buttons:
                 if button is not None:
                     button.draw(screen)
@@ -309,6 +328,11 @@ class Game:
                         print("ID", last_msg[0][0])
                         connection.send(f"JOIN {1} {self.nickname}")
                         connection.send(f"LOBBY_SHOW {1}")
+                    if exit_button is not None and exit_button.checkForClick(pygame.mouse.get_pos()):
+                        connection.send("LEAVE")
+                        connection.client.close()
+                        self.menu(run, cursor, df)
+                        return
 
             pygame.display.flip()
 
@@ -399,24 +423,29 @@ class Button:
         self.text = text
         self.font = font
         self.text_col = text_col
-        self.color = (200,200,200)
+        self.rect = pygame.Rect(x, y, width, height)
+        self.color = (200, 200, 200)
+        self.hover_color = (255, 255, 255)
+        self.current_color = self.color
 
     def checkForClick(self, mouse):
-        if mouse[0] > self.x and mouse[0] < self.x + self.width and mouse[1] > self.y and mouse[1] < self.y + self.height:
-                return True
-        return False
+        return self.rect.collidepoint(mouse)
 
     def draw(self, screen):
-        pygame.draw.rect(screen, self.color, (self.x, self.y, self.width, self.height))
-        text = self.font.render(self.text, 1, self.text_col)
-        text_rect = text.get_rect(center=(2*self.x, self.y + self.y/6))
-        screen.blit(text, text_rect)
+        pygame.draw.rect(screen, self.current_color, self.rect)
+        pygame.draw.rect(screen, (0, 0, 0), self.rect, 2)
+
+        text_surface = self.font.render(self.text, True, self.text_col)
+        text_rect = text_surface.get_rect(center=self.rect.center)
+        screen.blit(text_surface, text_rect)
 
     def change_color(self, mouse):
-       if self.x < mouse[0] < self.x + self.width and self.y < mouse[1] < self.y + self.height:
-            self.color = (255,255,255)
-       else:
-            self.color = (0,0,0)
+        if self.rect.collidepoint(mouse):
+            self.current_color = self.hover_color
+            print(f"Mouse at {mouse} over {self.rect}? {self.rect.collidepoint(mouse)}")
+        else:
+            self.current_color = self.color
+            print(f"Mouse at {mouse} over {self.rect}? {self.rect.collidepoint(mouse)}")
 
 
 '''
