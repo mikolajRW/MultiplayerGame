@@ -149,22 +149,25 @@ class Game:
             print("Wrong answer.")
 
     def menu(self, run, cursor, df):
+
+        play_button = Button(width=SCREEN_WIDTH / 2, height=SCREEN_HEIGHT / 5, text="Play",
+                             font=text_font, text_col=(100, 100, 100), x=SCREEN_WIDTH / 2 - SCREEN_WIDTH / 4,
+                             y=SCREEN_HEIGHT - SCREEN_HEIGHT / 1.33)
+        create_lobby_button = Button(width=SCREEN_WIDTH / 2, height=SCREEN_HEIGHT / 5, text="New Lobby",
+                                     font=text_font, text_col=(100, 100, 100), x=SCREEN_WIDTH / 2 - SCREEN_WIDTH / 4,
+                                     y=SCREEN_HEIGHT - SCREEN_HEIGHT / 2)
+        join_lobby_button = Button(width=SCREEN_WIDTH / 2, height=SCREEN_HEIGHT / 5, text="Show Lobbies",
+                                   font=text_font, text_col=(100, 100, 100), x=SCREEN_WIDTH / 2 - SCREEN_WIDTH / 4,
+                                   y=SCREEN_HEIGHT - SCREEN_HEIGHT / 4)
+        # exit_button = draw_text("EXIT", text_font, (255, 255, 255), SCREEN_WIDTH/2, SCREEN_HEIGHT/1.8)
+        buttons = [join_lobby_button, create_lobby_button, play_button]
+
         while run:
             screen.fill((235, 132, 250))
             menu_text = text_font.render("Menu", True, (0, 0, 0))
             text_react = menu_text.get_rect(center=(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 10))
             screen.blit(menu_text, text_react)
-            play_button = Button(width=SCREEN_WIDTH / 2, height=SCREEN_HEIGHT / 5, text="Play",
-                                 font=text_font, text_col=(100, 100, 100), x=SCREEN_WIDTH/2 - SCREEN_WIDTH/4,
-                                 y = SCREEN_HEIGHT - SCREEN_HEIGHT/1.33)
-            create_lobby_button = Button(width=SCREEN_WIDTH / 2, height=SCREEN_HEIGHT / 5, text="New Lobby",
-                                 font=text_font, text_col=(100, 100, 100), x=SCREEN_WIDTH/2 - SCREEN_WIDTH/4,
-                                 y = SCREEN_HEIGHT - SCREEN_HEIGHT/2)
-            join_lobby_button = Button(width=SCREEN_WIDTH / 2, height=SCREEN_HEIGHT / 5, text="Show Lobbies",
-                                 font=text_font, text_col=(100, 100, 100), x=SCREEN_WIDTH/2 - SCREEN_WIDTH/4,
-                                 y = SCREEN_HEIGHT - SCREEN_HEIGHT/4)
-            # exit_button = draw_text("EXIT", text_font, (255, 255, 255), SCREEN_WIDTH/2, SCREEN_HEIGHT/1.8)
-            buttons = [join_lobby_button, create_lobby_button, play_button]
+
             for button in buttons:
                 button.draw(screen)
 
@@ -194,20 +197,22 @@ class Game:
 
     def enter_data(self, cursor):
         self.nickname = "Enter Nickname"
+        nickname_button = Button(width=SCREEN_WIDTH / 2, height=SCREEN_HEIGHT / 5, text=self.nickname,
+                                 font=text_font, text_col=(100, 100, 100),
+                                 x=SCREEN_WIDTH / 2 - SCREEN_WIDTH / 4,
+                                 y=SCREEN_HEIGHT - SCREEN_HEIGHT / 2)
+        lobby_button = Button(width=SCREEN_WIDTH / 4, height=SCREEN_HEIGHT / 5, text=self.lobby_type,
+                              font=text_font, text_col=(100, 100, 100),
+                              x=SCREEN_WIDTH / 4 - SCREEN_WIDTH / 8,
+                              y=SCREEN_HEIGHT - SCREEN_HEIGHT / 4)
+        buttons = [nickname_button, lobby_button]
         while run:
             screen.fill((235, 132, 250))
             nickname_text = text_font.render("Enter Nickname", True, (0, 0, 0))
             nickname_rect = nickname_text.get_rect(center=(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 10))
             screen.blit(nickname_text, nickname_rect)
-            nickname_button = Button(width=SCREEN_WIDTH / 2, height=SCREEN_HEIGHT / 5, text=self.nickname,
-                                 font=text_font, text_col=(100, 100, 100),
-                                 x=SCREEN_WIDTH / 2 - SCREEN_WIDTH / 4,
-                                 y=SCREEN_HEIGHT - SCREEN_HEIGHT / 2)
-            lobby_button = Button(width=SCREEN_WIDTH / 4, height=SCREEN_HEIGHT / 5, text=self.lobby_type,
-                                 font=text_font, text_col=(100, 100, 100),
-                                 x=SCREEN_WIDTH / 4 - SCREEN_WIDTH / 8,
-                                 y=SCREEN_HEIGHT - SCREEN_HEIGHT / 4)
-            buttons = [nickname_button, lobby_button]
+            mouse = pygame.mouse.get_pos()
+
             for button in buttons:
                 button.draw(screen)
             key = pygame.key.get_pressed()
@@ -229,6 +234,9 @@ class Game:
                             self.nickname = "Enter Nickname"
                     else:
                         print("Wrong Input")
+                if event.type == pygame.MOUSEMOTION:
+                    for button in buttons:
+                        button.change_color(mouse)
             cursor = self.check_cursor(cursor)
 
             pygame.display.update()
@@ -250,6 +258,7 @@ class Game:
         while run:
             #print(f"latest message: {connection.get_latest_message()}")
            # print(connection.messages.split(" "))
+            mouse = pygame.mouse.get_pos()
             screen.fill((235, 132, 250))
             print(connection.get_latest_message())
             pos = 50
@@ -316,7 +325,9 @@ class Game:
             for button in buttons:
                 if button is not None:
                     button.draw(screen)
+                    button.change_color(mouse)
             key = pygame.key.get_pressed()
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.menu(run, cursor, df)
