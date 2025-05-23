@@ -251,82 +251,44 @@ class Game:
         elif self.lobby_type == "SHOW":
             connection.send(f"{self.lobby_type}")
         #print(connection.messages)
-        join_button = None
-        play_button = None
-        exit_button = None
+
+        play_button = Button(
+            width=SCREEN_WIDTH / 2,
+            height=SCREEN_HEIGHT / 5,
+            text="Start Play",
+            font=text_font,
+            text_col=(100, 100, 100),
+            x=SCREEN_WIDTH / 2 - SCREEN_WIDTH / 4,
+            y=SCREEN_HEIGHT - SCREEN_HEIGHT / 2
+        )
+
+        join_button = Button(
+            width=SCREEN_WIDTH / 25,
+            height=SCREEN_HEIGHT / 25,
+            text="Join",
+            font=text_font,
+            text_col=(100, 100, 100),
+            x=SCREEN_WIDTH / 10 + SCREEN_WIDTH / 1.25,
+            y=50  # Initial y, will be updated per lobby
+        )
+
+        exit_button = Button(
+            width=SCREEN_WIDTH / 4,
+            height=SCREEN_HEIGHT / 10,
+            text="Exit Lobby",
+            font=game_font,
+            text_col=(100, 100, 100),
+            x=SCREEN_WIDTH - SCREEN_WIDTH / 4 - 20,
+            y=20
+        )
+
         in_lobby = False
+        active_buttons = []
         while run:
             #print(f"latest message: {connection.get_latest_message()}")
            # print(connection.messages.split(" "))
             mouse = pygame.mouse.get_pos()
-            screen.fill((235, 132, 250))
-            print(connection.get_latest_message())
-            pos = 50
-            last_msg = str(connection.get_latest_message()).split(" ")
-
-            if in_lobby:
-                exit_button = Button(
-                    width=SCREEN_WIDTH / 2,
-                    height=SCREEN_HEIGHT / 5,
-                    text="Exit Lobby",
-                    font=text_font,
-                    text_col=(100, 100, 100),
-                    x=SCREEN_WIDTH / 2 - SCREEN_WIDTH / 4,
-                    y=SCREEN_HEIGHT / 1.3
-                )
-            else:
-                exit_button = None
-
-            if self.lobby_type == "START" and last_msg is not None:
-                in_lobby = True
-                self.draw_text("Amount of Player", game_font, category_color, SCREEN_WIDTH / 2, SCREEN_HEIGHT - SCREEN_HEIGHT / 4)
-                self.draw_text(f"{last_msg[0]}/{MAX_LOBBY}", game_font, category_color, SCREEN_WIDTH / 2, SCREEN_HEIGHT - SCREEN_HEIGHT / 6)
-                self.draw_text("Players", game_font, category_color, SCREEN_WIDTH / 2, 0)
-                for player_nick in last_msg[1:]:
-                    self.draw_text(player_nick, game_font, category_color, SCREEN_WIDTH / 2, pos)
-                    pos += 50
-                print(last_msg[0])
-                self.lobby_type = "LOBBY_SHOW"
-                play_button = Button(width=SCREEN_WIDTH / 2, height=SCREEN_HEIGHT / 5, text="Start Play",
-                                     font=text_font, text_col=(100, 100, 100),
-                                     x=SCREEN_WIDTH / 2 - SCREEN_WIDTH / 4,
-                                     y=SCREEN_HEIGHT - SCREEN_HEIGHT / 2)
-
-            elif self.lobby_type == "SHOW" and connection.get_latest_message() is not None:
-                in_lobby = False
-                join_button = Button(width=SCREEN_WIDTH / 25, height=SCREEN_HEIGHT / 25, text="Join",
-                                     font=text_font, text_col=(100, 100, 100),
-                                     x=SCREEN_WIDTH / 10 + SCREEN_WIDTH / 1.25,
-                                     y=pos)
-
-                for msg in last_msg[:-1]:
-                    msg = msg.split("-")
-                    self.draw_text(F"Lobby ID: {msg[0]}, amount of players: {len(msg) - 1}/{MAX_LOBBY}",
-                                        game_font, category_color, SCREEN_WIDTH / 10, pos)
-                    pos += 50
-
-            elif self.lobby_type == "LOBBY_SHOW" and connection.get_latest_message() is not None:
-                # ogarnac który indeks, jesy wybierany ale to petla po przyciskach
-                connection.send(f"LOBBY_SHOW {1}")
-                play_button = Button(width=SCREEN_WIDTH / 2, height=SCREEN_HEIGHT / 5, text="Start Play",
-                                     font=text_font, text_col=(100, 100, 100),
-                                     x=SCREEN_WIDTH / 2 - SCREEN_WIDTH / 4,
-                                     y=SCREEN_HEIGHT - SCREEN_HEIGHT / 2)
-                last_msg = last_msg[0].split("-")
-                self.draw_text(F"Lobby ID: {last_msg[0]}, amount of players: {len(last_msg)-1}/{MAX_LOBBY}",
-                                        game_font, category_color, SCREEN_WIDTH / 10, pos)
-
-                #for key, value in dict(connection.get_latest_message()).items():
-                 #   self.draw_text(F"Lobby ID: {key}, amount of players: {len(value)}/{MAX_LOBBY}",
-                  #                 game_font, category_color, SCREEN_WIDTH / 2, pos)
-                   # pos += 50
-
-            buttons = [play_button, join_button, exit_button]
-            for button in buttons:
-                if button is not None:
-                    button.draw(screen)
-                    button.change_color(mouse)
-            key = pygame.key.get_pressed()
+            mouse_click = False
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -344,6 +306,74 @@ class Game:
                         connection.client.close()
                         self.menu(run, cursor, df)
                         return
+                if event.type == pygame.MOUSEMOTION:
+                    for button in active_buttons:
+                        button.change_color(mouse)
+
+            screen.fill((235, 132, 250))
+            print(connection.get_latest_message())
+            pos = 50
+            last_msg = str(connection.get_latest_message()).split(" ")
+
+            active_buttons = []
+
+            if in_lobby:
+                active_buttons.extend([exit_button])
+            else:
+                active_buttons = []
+
+            if self.lobby_type == "START" and last_msg is not None:
+                in_lobby = True
+                active_buttons.extend([play_button, exit_button])
+                self.draw_text("Amount of Player", game_font, category_color, SCREEN_WIDTH / 2, SCREEN_HEIGHT - SCREEN_HEIGHT / 4)
+                self.draw_text(f"{last_msg[0]}/{MAX_LOBBY}", game_font, category_color, SCREEN_WIDTH / 2, SCREEN_HEIGHT - SCREEN_HEIGHT / 6)
+                self.draw_text("Players", game_font, category_color, SCREEN_WIDTH / 2, 0)
+                for player_nick in last_msg[1:]:
+                    self.draw_text(player_nick, game_font, category_color, SCREEN_WIDTH / 2, pos)
+                    pos += 50
+                print(last_msg[0])
+                self.lobby_type = "LOBBY_SHOW"
+                # play_button = Button(width=SCREEN_WIDTH / 2, height=SCREEN_HEIGHT / 5, text="Start Play",
+                #                      font=text_font, text_col=(100, 100, 100),
+                #                      x=SCREEN_WIDTH / 2 - SCREEN_WIDTH / 4,
+                #                      y=SCREEN_HEIGHT - SCREEN_HEIGHT / 2)
+
+            elif self.lobby_type == "SHOW" and connection.get_latest_message() is not None:
+                in_lobby = False
+                # join_button = Button(width=SCREEN_WIDTH / 25, height=SCREEN_HEIGHT / 25, text="Join",
+                #                      font=text_font, text_col=(100, 100, 100),
+                #                      x=SCREEN_WIDTH / 10 + SCREEN_WIDTH / 1.25,
+                #                      y=pos)
+
+                for msg in last_msg[:-1]:
+                    msg = msg.split("-")
+                    self.draw_text(F"Lobby ID: {msg[0]}, amount of players: {len(msg) - 1}/{MAX_LOBBY}",
+                                        game_font, category_color, SCREEN_WIDTH / 10, pos)
+                    active_buttons.append(join_button)
+                    pos += 50
+
+            elif self.lobby_type == "LOBBY_SHOW" and connection.get_latest_message() is not None:
+                # ogarnac który indeks, jesy wybierany ale to petla po przyciskach
+                connection.send(f"LOBBY_SHOW {1}")
+                active_buttons.extend([play_button, exit_button])
+                # play_button = Button(width=SCREEN_WIDTH / 2, height=SCREEN_HEIGHT / 5, text="Start Play",
+                #                      font=text_font, text_col=(100, 100, 100),
+                #                      x=SCREEN_WIDTH / 2 - SCREEN_WIDTH / 4,
+                #                      y=SCREEN_HEIGHT - SCREEN_HEIGHT / 2)
+                last_msg = last_msg[0].split("-")
+                self.draw_text(F"Lobby ID: {last_msg[0]}, amount of players: {len(last_msg)-1}/{MAX_LOBBY}",
+                                        game_font, category_color, SCREEN_WIDTH / 10, pos)
+
+                #for key, value in dict(connection.get_latest_message()).items():
+                 #   self.draw_text(F"Lobby ID: {key}, amount of players: {len(value)}/{MAX_LOBBY}",
+                  #                 game_font, category_color, SCREEN_WIDTH / 2, pos)
+                   # pos += 50
+
+            for button in active_buttons:
+                if button is not None:
+                    button.draw(screen)
+                    button.change_color(mouse)
+            key = pygame.key.get_pressed()
 
             pygame.display.flip()
 
@@ -453,10 +483,10 @@ class Button:
     def change_color(self, mouse):
         if self.rect.collidepoint(mouse):
             self.current_color = self.hover_color
-            print(f"Mouse at {mouse} over {self.rect}? {self.rect.collidepoint(mouse)}")
+            #print(f"Mouse at {mouse} over {self.rect}? {self.rect.collidepoint(mouse)}")
         else:
             self.current_color = self.color
-            print(f"Mouse at {mouse} over {self.rect}? {self.rect.collidepoint(mouse)}")
+            #print(f"Mouse at {mouse} over {self.rect}? {self.rect.collidepoint(mouse)}")
 
 
 '''
