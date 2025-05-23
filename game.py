@@ -43,6 +43,9 @@ df = pd.DataFrame({"Category": game_categories, "Answer": game_answers, "PosX:":
 cursor = 0
 run = True
 
+HOST = "localhost"
+PORT = 61111
+
 class Establish_Connection:
     messages = []
     BUFFER = 1024
@@ -379,7 +382,19 @@ class Game:
 
 
     def gameplay(self, run, cursor, df):
+
+        exit_button = Button(
+            width=SCREEN_WIDTH / 4,
+            height=SCREEN_HEIGHT / 10,
+            text="Exit Game",
+            font=game_font,
+            text_col=(100, 100, 100),
+            x=SCREEN_WIDTH - SCREEN_WIDTH / 4 - 20,
+            y=20
+        )
         while run:
+            mouse = pygame.mouse.get_pos()
+            mouse_click = False
             screen.fill((235, 132, 250))
             key = pygame.key.get_pressed()
 
@@ -405,8 +420,22 @@ class Game:
                         df.at[cursor, "Answer"] += event.unicode
                     else:
                         print("Wrong input!")
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if exit_button.checkForClick(mouse):
+                        try:
+                            connection = Establish_Connection("localhost", 61111)
+                            connection.send("LEAVE")
+                            connection.client.close()
+                        except:
+                            print("Couldn't notify server about leaving")
+                        self.menu(run, cursor, df)
+                        return
 
-            # df = change_to_lowercase(df)
+            exit_button.change_color(mouse)
+            exit_button.draw(screen)
+
+
+                # df = change_to_lowercase(df)
             cursor = self.check_cursor(cursor)
 
             self.print_categories_and_answers()

@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8027093a-074d-42e3-a59b-05bc92598085" name="Changes" comment="added button hovering color change (aprat from the 'inside lobby' and 'all lobbies' view)">
+    <list default="true" id="8027093a-074d-42e3-a59b-05bc92598085" name="Changes" comment="added button hovering color change in lobbies">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
     </list>
@@ -190,7 +190,14 @@
       <option name="project" value="LOCAL" />
       <updated>1747987636464</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="added button hovering color change in lobbies">
+      <created>1748006795450</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1748006795450</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -211,7 +218,8 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="added leave lobby button" />
     <MESSAGE value="added button hovering color change (aprat from the 'inside lobby' and 'all lobbies' view)" />
-    <option name="LAST_COMMIT_MESSAGE" value="added button hovering color change (aprat from the 'inside lobby' and 'all lobbies' view)" />
+    <MESSAGE value="added button hovering color change in lobbies" />
+    <option name="LAST_COMMIT_MESSAGE" value="added button hovering color change in lobbies" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
