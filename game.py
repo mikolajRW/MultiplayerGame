@@ -253,29 +253,7 @@ class Game:
             pygame.display.update()
             pygame.display.flip()
 
-    def show_temp_message(self, msg, font, color, x, y, duration=5):
-        self.warning_start_time = time.time()
-        if self.warning_start_time and time.time() - self.warning_start_time < duration:
-            self.draw_text(msg, font, color, x, y)
-        else:
-            self.warning_start_time = None
-
-
-    def create_lobby(self):
-        HOST = "localhost"
-        PORT = 61111
-        connection = Establish_Connection(HOST, PORT)
-
-        # If player wants to start his own lobby - flag self.lobby_type = "START
-        if self.lobby_type == "START":
-            connection.send(f"{self.lobby_type} {self.nickname}\n")
-        # If player want to join lobby - we show him all available lobbies
-        elif self.lobby_type == "SHOW":
-            connection.send(f"{self.lobby_type}\n")
-        #print(connection.messages)
-
-
-
+    def set_buttons_in_lobby(self):
         exit_button = Button(
             width=SCREEN_WIDTH / 4,
             height=SCREEN_HEIGHT / 10,
@@ -286,6 +264,7 @@ class Game:
             y=SCREEN_HEIGHT - SCREEN_HEIGHT / 4
         )
 
+        # Button resposnbile for refreshing lobby
         refresh_button_lobbies = Button(
             width=SCREEN_WIDTH / 4,
             height=SCREEN_HEIGHT / 10,
@@ -302,10 +281,9 @@ class Game:
             text="Refresh",
             font=game_font,
             text_col=(100, 100, 100),
-            x=SCREEN_WIDTH/15,
+            x=SCREEN_WIDTH / 15,
             y=525
         )
-
 
         ready_button = Button(
             width=SCREEN_WIDTH / 4,
@@ -317,57 +295,113 @@ class Game:
             y=SCREEN_HEIGHT - SCREEN_HEIGHT / 4
         )
 
+        return exit_button, refresh_button_lobbies, refresh_button_lobby, ready_button
+
+    def leaving_lobby(self, last_msg, connection):
+        """
+        Sends a LEAVE message to the server when a player exits a lobby.
+        Determines the lobby number from the last received message and closes the network connection.
+        Then, returns the player to the main menu.
+        """
+        # we send information to server - self.nickname - nickname of player, lobby_number - lobby in which player was
+        if last_msg[0] == "NOT":
+            lobby_number = last_msg[1]
+            connection.send(f"LEAVE {self.nickname} {lobby_number}\n")
+        else:
+            lobby_number = last_msg[0]
+            connection.send(f"LEAVE {self.nickname} {lobby_number}\n")
+
+        # Envoke function responsible for closing connection
+        self.close_network_connection(connection, "LEAVING")
+        self.menu(run, cursor, df)
 
 
+    def joining_lobby(self, join_button_dict, connection):
+        """
+        Handles player interaction with lobby join buttons.
+        Iterates over join buttons (excluding the first) and sends a JOIN message to the server
+        when a lobby button is clicked. Updates the lobby type to 'LOBBY_SHOW' upon joining.
+        """
+        # Iterate over buttons in join_button_dict - 'islice' method allows to iterate from the second object in dictionary
+        for key, value in islice(join_button_dict.items(), 1, None):
+
+            if value is not None and value.checkForClick(pygame.mouse.get_pos()):
+                self.lobby_type = "LOBBY_SHOW"
+                lobby_id = key.split('_')[2]
+                # Send information to server that player with 'self.nickname' joined lobby with number 'lobby_id'
+                connection.send(f"JOIN {lobby_id} {self.nickname}\n")
+                break
+
+
+
+    def handle_readiness_for_game(self, last_msg, connection):
+        prev_error = 0
+        if last_msg[0] == "NOT":
+            prev_error = 1
+        connection.send(f"READY {self.nickname} {last_msg[0 + prev_error]}\n")
+
+
+    def create_lobby(self):
+        HOST = "localhost"
+        PORT = 61111
+        connection = Establish_Connection(HOST, PORT)
+
+        # If player wants to start his own lobby - flag self.lobby_type = "START
+        if self.lobby_type == "START":
+            connection.send(f"{self.lobby_type} {self.nickname}\n")
+        # If player want to join lobby - we show him all available lobbies
+        elif self.lobby_type == "SHOW":
+            connection.send(f"{self.lobby_type}\n")
+
+        '''
+        Buttons in lobby:
+        exit_button - responsible for leaving a lobby
+        refresh_button_lobbies - used in a situation when player wants to show what lobbies are open
+        refresh_button_lobby - used in a salutation when player is in lobby, and this player wants to see changes in his lobby
+        ready_button - if player is ready to play a game
+        '''
+        exit_button, refresh_button_lobbies, refresh_button_lobby, ready_button = self.set_buttons_in_lobby()
+
+
+
+        # if player is already in lobby - exit_button is available
         in_lobby = False
+
+        # lists which store every button used in this view
         active_buttons = []
+
+        # dictionary of buttons which are visible during 'self.lobby_type' = show - allows player to join particular lobby
         join_button_dict = {}
         while run:
-            #print(f"latest message: {connection.get_latest_message()}")
-           # print(connection.messages.split(" "))
+
             mouse = pygame.mouse.get_pos()
-            mouse_click = False
             for event in pygame.event.get():
+
+                # If player clicks 'Quit' on a screen he leaves lobby
                 if event.type == pygame.QUIT:
-                    last_msg = last_msg[0].split("-")
-                    connection.send(f"LEAVE {self.nickname} {last_msg[0]}\n")
-                    self.close_network_connection(connection, "LEAVING")
-                    self.menu(run, cursor, df)
+                    self.leaving_lobby(last_msg, connection)
+
+
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    for key, value in islice(join_button_dict.items(),1,None):
-                        if value is not None and value.checkForClick(pygame.mouse.get_pos()):
-                            self.lobby_type = "LOBBY_SHOW"
 
-                            lobby_id = key.split('_')[2]
-                            print(key)
-                            print("ID", lobby_id, value)
-                            connection.send(f"JOIN {lobby_id} {self.nickname}\n")
+                    # Function handling joining lobby
+                    self.joining_lobby(join_button_dict, connection)
 
-                            break
-
+                    # Button responsible for leaving a lobby
                     if exit_button is not None and exit_button.checkForClick(pygame.mouse.get_pos()):
-                        last_msg = last_msg[0].split("-")
-                        print(last_msg)
-                        connection.send(f"LEAVE {self.nickname} {last_msg[0]}\n")
-                        self.close_network_connection(connection, "LEAVING")
-                        self.menu(run, cursor, df)
+                        self.leaving_lobby(last_msg, connection)
+
+                    # Player clicks 'refresh_button_lobbies' button - wants to upload newly created lobbies
                     if refresh_button_lobbies is not None and refresh_button_lobbies.checkForClick(pygame.mouse.get_pos()):
-                        #print("chujjjjjj")
                         connection.send(f"SHOW\n")
+                    # If players click that he is ready for joining the game - click 'READY' button
                     if ready_button is not None and ready_button.checkForClick(pygame.mouse.get_pos()) and ready_button.get_text() == "READY":
-                        prev_error=0
-                        if last_msg[0] == "NOT":
-                            prev_error=1
-                        print(f"READY {self.nickname} {last_msg[0+prev_error]}\n")
-                        connection.send(f"READY {self.nickname} {last_msg[0+prev_error]}\n")
+                        self.handle_readiness_for_game(last_msg, connection)
                         ready_button.set_text("UNREADY")
+                    # If players wants to change his readyness - click 'UNREADY' button
                     elif ready_button is not None and ready_button.checkForClick(pygame.mouse.get_pos()) and ready_button.get_text() == "UNREADY":
-                        prev_error = 0
-                        if last_msg[0] == "NOT":
-                            prev_error = 1
-                        print(f"READY {self.nickname} {last_msg[0 + prev_error]}\n")
+                        self.handle_readiness_for_game(last_msg, connection)
                         ready_button.set_text("READY")
-                        connection.send(f"UNREADY {self.nickname} {last_msg[0+ prev_error] }\n")
                     if refresh_button_lobby is not None and refresh_button_lobby.checkForClick(pygame.mouse.get_pos()):
                         prev_error = 0
                         if last_msg[0] == "NOT":
@@ -378,11 +412,13 @@ class Game:
                     for button in active_buttons:
                         button.change_color(mouse)
 
+
             screen.fill((235, 132, 250))
-           # print(connection.get_latest_message())
             pos = 50
+
             last_msg = str(connection.get_latest_message()).split(" ")
 
+            # Reset 'active_buttons' list in every iteration - to check changes
             active_buttons = []
 
             if in_lobby:
@@ -399,17 +435,9 @@ class Game:
             elif self.lobby_type == "START" and last_msg is not None:
                 in_lobby = True
                 self.lobby_type = "LOBBY_SHOW"
-                print("KURWA" + str(last_msg))
-                get_id = True
-
-                # play_button = Button(width=SCREEN_WIDTH / 2, height=SCREEN_HEIGHT / 5, text="Start Play",
-                #                      font=text_font, text_col=(100, 100, 100),
-                #                      x=SCREEN_WIDTH / 2 - SCREEN_WIDTH / 4,
-                #                      y=SCREEN_HEIGHT - SCREEN_HEIGHT / 2)
 
             elif self.lobby_type == "SHOW" and last_msg is not None:
                 in_lobby = False
-               # print("CHUJJJ")
 
                 active_buttons.append(refresh_button_lobbies)
                 for msg in last_msg:
@@ -443,7 +471,7 @@ class Game:
                 if last_msg[0] == "NOT":
                     self.draw_text(F"Lobby ID: {last_msg[1]}, amount of players: {last_msg[2]}/{MAX_LOBBY}",
                                    game_font, category_color, SCREEN_WIDTH / 10, pos)
-                    self.show_temp_message("Not enough players to start a game", game_font, category_color,
+                    self.draw_text("Not enough players to start a game", game_font, category_color,
                                            SCREEN_WIDTH / 10, pos + 50)
                     readyness_type = "READY"
                    # connection.send(f"LOBBY_SHOW {last_msg[1]}\n")
@@ -458,17 +486,11 @@ class Game:
                     game_start = int(last_msg[-1][0]) - int(last_msg[1])
                 else:
                     game_start = -1
-                print(game_start)
-                #for key, value in dict(connection.get_latest_message()).items():
-                 #   self.draw_text(F"Lobby ID: {key}, amount of players: {len(value)}/{MAX_LOBBY}",
-                  #                 game_font, category_color, SCREEN_WIDTH / 2, pos)
-                   # pos += 50
 
             for button in active_buttons:
                 if button is not None:
                     button.draw(screen)
                     button.change_color(mouse)
-            key = pygame.key.get_pressed()
 
             pygame.display.flip()
 
@@ -507,6 +529,7 @@ class Game:
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
+                    # dodaj wychodzenie z lobby
                     self.menu(run, cursor, df)
                 if event.type == pygame.KEYDOWN:
                     if event.type == pygame.KEYDOWN:
@@ -598,6 +621,7 @@ class Game:
             elif last_msg is not None and last_msg[0] == 'CHECK_ANSWERS':
                 connection.send(f"CHECK_ANSWERS {self.token}\n")
             elif last_msg is not None and last_msg[0] == 'SHOW_RESULTS':
+                df["Answer"] = [last_msg[1]] * len(game_categories)
                 connection.send(f"SHOW_PUNCTUATION {self.token}\n")
             cursor = self.check_cursor(cursor)
             self.print_categories_and_answers()

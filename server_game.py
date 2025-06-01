@@ -1,3 +1,25 @@
+"""
+This is a multiplayer game server for a "Stop the Bus" (Polish: Państwa-Miasta)
+Players can submit answers based on categories (like Country, City, Animal, etc.),
+and receive points depending on how unique or correct their answers are.
+
+Key features:
+- Lobby is created based on the lobby from the previous server - 'server_lobby.py' file
+- The server sends a random letter and players must give answers starting with that letter.
+- All answers are validated against category-specific dictionaries.
+- Points are awarded:
+    * 15 points: if the answer is the only one in that category.
+    * 10 points: if the answer is correct and unique but others also answered in that category.
+    * 5 points: if the answer is a duplicate.
+- Players can leave lobbies, and lobbies close automatically when players leave.
+- Thread-safe handling of game state using locks.
+
+Modules:
+- Uses `socket` for networking, `threading` for handling multiple clients, and `collections` for counting.
+- Valid answers are loaded from text files located in the `dictionaries/` folder.
+"""
+
+
 import socket
 import threading
 import network_utils
@@ -20,7 +42,7 @@ game_categories = ["Country", "City", "Animal", "Thing", "Occupation", "Movie"]
 filepaths = ['dictionaries/countries.txt', 'dictionaries/cities.txt', 'dictionaries/animals.txt',
              'dictionaries/things.txt', 'dictionaries/occupations.txt', 'dictionaries/movies.txt']
 compare_answers = {}
-
+already_checked_answers = {}
 
 def get_data_to_verify_ans():
     for filepath,category in zip(filepaths, game_categories):
@@ -71,57 +93,71 @@ def process_message_game(conn, message, addr):
                 print("WYSLANE")
         elif message.startswith("GATHER_ANS"):
             _, lobby_token, answers = message.split(" ")
-            answers = answers.split("-")
-            ver_ans = []
-            for ans in answers[:-1]:
-                ans = ans.split("_")
-                if ans[0].lower() in data_to_verify[ans[1]]:
-                    ver_ans.append((ans[1], ans[0], conn))
+            with game_lock:
+                answers = answers.split("-")
+                ver_ans = []
+                for ans in answers[:-1]:
+                    ans = ans.split("_")
+                    if ans[0].lower() in data_to_verify[ans[1]]:
+                        ver_ans.append((ans[1], ans[0], conn))
+                    else:
+                        ver_ans.append((ans[1], "", conn))
+
+                if compare_answers.get(lobby_token) is not None:
+                    compare_answers[lobby_token].extend(ver_ans)
                 else:
-                    ver_ans.append((ans[1], "", conn))
+                    compare_answers[lobby_token] = ver_ans
 
-            if compare_answers.get(lobby_token) is not None:
-                compare_answers[lobby_token].extend(ver_ans)
-            else:
-                compare_answers[lobby_token] = ver_ans
-
-            conn.sendall(f"CHECK_ANSWERS".encode())
+                conn.sendall(f"CHECK_ANSWERS".encode())
 
         elif message.startswith("CHECK_ANSWERS"):
             _, lobby_token = message.split(" ")
-            category_answer_counter = defaultdict(Counter)
-            for category, answer, player_conn in compare_answers[lobby_token]:
-                if answer == "":
-                    continue
-                category_answer_counter[category][answer.strip().lower()] += 1
-            print(category_answer_counter)
-            player_points = defaultdict(int)
+            with game_lock:
+                if already_checked_answers.get(lobby_token) is not None and already_checked_answers.get(lobby_token) > 0:
+                    conn.sendall(f"SHOW_RESULTS-{letter_for_lobby[lobby_token]}".encode())
+                    already_checked_answers[lobby_token] += 1
+                    print(compare_answers, "POROWNMANE ODP")
+                    print(already_checked_answers[lobby_token], "JAK WYGLADA SPRAWDZONE")
+                    if already_checked_answers[lobby_token] == len(lobbies[lobby_token]):
+                        del already_checked_answers[lobby_token]
+                    return
+                category_answer_counter = defaultdict(Counter)
+                for category, answer, player_conn in compare_answers[lobby_token]:
+                    if answer == "":
+                        continue
+                    category_answer_counter[category][answer.strip().lower()] += 1
+                print(category_answer_counter)
+                player_points = defaultdict(int)
 
-            for category, answer, player_conn in compare_answers[lobby_token]:
-                # tu do poprawy nie brac conn tylko konktenty element z conn
-                if answer == "" and player_conn != conn:
-                    continue
-                normalized_answer = answer.strip().lower()
-                total_in_category = sum(category_answer_counter[category].values())
-                count = category_answer_counter[category][normalized_answer]
+                for category, answer, player_conn in compare_answers[lobby_token]:
+                    # tu do poprawy nie brac conn tylko konktenty element z conn
+                    print(player_conn, "gracz")
+                    if answer == "":
+                        continue
+                    normalized_answer = answer.strip().lower()
+                    total_in_category = sum(category_answer_counter[category].values())
+                    count = category_answer_counter[category][normalized_answer]
 
-                if count == 1 and total_in_category == 1:
-                    points = 15
-                elif count == 1:
-                    points = 10
-                else:
-                    points = 5
-                player_points[player_conn] += points
-            print(player_points)
-            #if dict_counter[lobby_token] == len(lobbies[lobby_token]):
-             #   del compare_answers[lobby_token]
-              #  del dict_counter[lobby_token]
-            for player_data in lobbies[lobby_token]:
-                if player_data[0] == conn:
-                    points = int(player_data[2]) + player_points[conn]
+                    if count == 1 and total_in_category == 1:
+                        points = 15
+                    elif count == 1:
+                        points = 10
+                    elif count > 1:
+                        points = 5
+                    else:
+                        points = 0
+                    player_points[player_conn.getpeername()[1]] += points
+                    print(player_points)
+
+                print(compare_answers)
+                del compare_answers[lobby_token]
+                already_checked_answers[lobby_token] = 1
+                for player_data in lobbies[lobby_token]:
+                    points_gained = player_points[player_data[0].getpeername()[1]]
+                    points = int(player_data[2]) + points_gained
                     player_data[2] = str(points)
-
-            conn.sendall(f"SHOW_RESULTS".encode())
+                letter_for_lobby[lobby_token] = random.choice(letters)
+                conn.sendall(f"SHOW_RESULTS-{letter_for_lobby[lobby_token]}".encode())
     except Exception as e:
         print(f"[PROCESSING ERROR] {addr}: {e}")
         conn.sendall(f"ERROR {e}\n".encode())
