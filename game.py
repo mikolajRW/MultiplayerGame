@@ -30,8 +30,9 @@ player_img = pygame.transform.scale(player_img, (40, 40))
 
 player_rect = player_img.get_rect(topleft=(30, 250))
 
-category_color = (255, 0, 0)
+category_color = (0, 50, 100)
 answer_color = (255, 255, 255)
+bg_color = (240, 230, 255)
 
 game_font = pygame.font.Font(None, 50)
 text_font = pygame.font.SysFont("Arial", 70)
@@ -123,6 +124,27 @@ class Game:
     def draw_text(self, text, font, text_col, x, y):
         img = font.render(text, True, text_col)
         screen.blit(img, (x, y))
+
+    def draw_pretty_text(self, text, font, text_col, bg_col, y, v_padding=8, h_padding=20, spacing=4, prev_rect=None):
+
+        text_surface = font.render(text, True, text_col)
+        text_rect = text_surface.get_rect()
+
+        bar_height = text_rect.height + 2 * v_padding
+        bar_width = SCREEN_WIDTH - 2 * h_padding
+
+        if prev_rect:
+            y = max(y, prev_rect.bottom + spacing)
+
+        bar_rect = pygame.Rect(h_padding, y - bar_height // 2, bar_width, bar_height)
+
+        if bg_col:
+            pygame.draw.rect(screen, bg_col, bar_rect, border_radius=5)
+
+        text_rect.center = bar_rect.center
+        screen.blit(text_surface, text_rect)
+
+        return bar_rect
 
     def change_to_lowercase(self,game_array):
         game_array["Answer"] = game_array["Answer"].str.lower()
@@ -439,14 +461,16 @@ class Game:
             elif self.lobby_type == "SHOW" and last_msg is not None:
                 in_lobby = False
 
+                last_rect = None
+
                 active_buttons.append(refresh_button_lobbies)
                 for msg in last_msg:
                     if msg == '\n' or msg is None:
                         continue
                     msg = msg.split("-")
 
-                    self.draw_text(F"Lobby ID: {msg[0]}, amount of players: {len(msg)-1}/{MAX_LOBBY}",
-                                        game_font, category_color, SCREEN_WIDTH / 10, pos)
+                    last_rect = self.draw_pretty_text(F"Lobby ID: {msg[0]}, amount of players: {len(msg)-1}/{MAX_LOBBY}",
+                                        game_font, category_color, bg_color, pos, 8, 10, last_rect)
                     var_name = f"join_button_{msg[0]}"
                     print("VARRR", var_name)
                     join_button_dict[var_name] = Button(width=SCREEN_WIDTH / 25, height=SCREEN_HEIGHT / 25, text="",
@@ -468,18 +492,20 @@ class Game:
                 #                      y=SCREEN_HEIGHT - SCREEN_HEIGHT / 2)
                 last_msg = last_msg[0].split("-")
 
+                last_rect = None
+
                 if last_msg[0] == "NOT":
-                    self.draw_text(F"Lobby ID: {last_msg[1]}, amount of players: {last_msg[2]}/{MAX_LOBBY}",
-                                   game_font, category_color, SCREEN_WIDTH / 10, pos)
-                    self.draw_text("Not enough players to start a game", game_font, category_color,
-                                           SCREEN_WIDTH / 10, pos + 50)
+                    last_rect = self.draw_pretty_text(F"Lobby ID: {last_msg[1]}, amount of players: {last_msg[2]}/{MAX_LOBBY}",
+                                   game_font, category_color, bg_color, pos, 8, 20, 28, last_rect)
+                    last_rect = self.draw_pretty_text("Not enough players to start a game", game_font, category_color,
+                                           bg_color, pos + 50, 8, 20, prev_rect = last_rect)
                     readyness_type = "READY"
                    # connection.send(f"LOBBY_SHOW {last_msg[1]}\n")
                 else:
-                    self.draw_text(F"Lobby ID: {last_msg[0]}, amount of players: {last_msg[1]}/{MAX_LOBBY}",
-                                        game_font, category_color, SCREEN_WIDTH / 10, pos)
-                    self.draw_text(f"{last_msg[-1][0]}/{last_msg[1]} READY", game_font, category_color,
-                                           SCREEN_WIDTH / 10, pos + 50)
+                    last_rect = self.draw_pretty_text(F"Lobby ID: {last_msg[0]}, amount of players: {last_msg[1]}/{MAX_LOBBY}",
+                                        game_font, category_color, bg_color, pos, prev_rect=last_rect)
+                    last_rect = self.draw_pretty_text(f"{last_msg[-1][0]}/{last_msg[1]} READY", game_font, category_color,
+                                           bg_color, pos + 50, prev_rect=last_rect )
                    # connection.send(f"LOBBY_SHOW {last_msg[0]}\n")
 
                 if last_msg[-1][0].isdigit() and last_msg[1].isdigit():
@@ -636,8 +662,8 @@ class Game:
 
     def close_network_connection(self, connection, text):
         screen.fill((235, 132, 250))
-        self.draw_text(text, game_font,
-                       category_color, SCREEN_WIDTH / 10, 50)
+        self.draw_pretty_text(text, game_font,
+                       category_color, bg_color, 50)
         pygame.display.update()
         pygame.time.delay(3000)
         connection.client.shutdown(socket.SHUT_WR)
