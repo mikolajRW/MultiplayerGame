@@ -205,7 +205,7 @@ class Game:
 
 
     def enter_data(self, cursor):
-        self.nickname = "Enter Nickname"
+        self.nickname = ""
         nickname_button = Button(width=SCREEN_WIDTH / 2, height=SCREEN_HEIGHT / 5, text=self.nickname,
                                  font=text_font, text_col=(100, 100, 100),
                                  x=SCREEN_WIDTH / 2 - SCREEN_WIDTH / 4,
@@ -221,6 +221,8 @@ class Game:
             nickname_rect = nickname_text.get_rect(center=(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 10))
             screen.blit(nickname_text, nickname_rect)
             mouse = pygame.mouse.get_pos()
+
+            nickname_button.text = self.nickname if self.nickname else "Enter Nickname"
 
             for button in buttons:
                 button.draw(screen)

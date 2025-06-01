@@ -1,7 +1,7 @@
 import socket
 BUFFER_SIZE = 1024
 # ip naszej maszyny
-HOST = "192.168.0.66"
+HOST = "localhost"
 PORT = 61111
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
