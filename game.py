@@ -337,22 +337,22 @@ class Game:
         self.close_network_connection(connection, "LEAVING")
         self.menu(run, cursor, df)
 
-
     def joining_lobby(self, join_button_dict, connection):
-        """
-        Handles player interaction with lobby join buttons.
-        Iterates over join buttons (excluding the first) and sends a JOIN message to the server
-        when a lobby button is clicked. Updates the lobby type to 'LOBBY_SHOW' upon joining.
-        """
-        # Iterate over buttons in join_button_dict - 'islice' method allows to iterate from the second object in dictionary
         for key, value in islice(join_button_dict.items(), 1, None):
-
             if value is not None and value.checkForClick(pygame.mouse.get_pos()):
                 self.lobby_type = "LOBBY_SHOW"
                 lobby_id = key.split('_')[2]
-                # Send information to server that player with 'self.nickname' joined lobby with number 'lobby_id'
                 connection.send(f"JOIN {lobby_id} {self.nickname}\n")
-                break
+                # Check for response immediately after sending JOIN
+                last_msg = str(connection.get_latest_message()).split(" ")
+                if last_msg[0] == "ERROR_NICKNAME_TAKEN":
+                    self.draw_pretty_text("Nickname already taken! Choose another.", game_font, (255, 0, 0), bg_color, 50)
+                    pygame.display.update()
+                    pygame.time.delay(2000)
+                    self.close_network_connection(connection, "Nickname taken, returning to nickname input")
+                    self.enter_data(cursor)
+                    break
+
 
 
 

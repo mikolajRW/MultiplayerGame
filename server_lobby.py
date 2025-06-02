@@ -21,6 +21,7 @@ PORT = 61111
 LOBBIES_ID = 0                     # Auto-incremented lobby ID
 lobbies = {}                       # lobby_id -> list of client sockets
 lobbies_ready = {}                # lobby_id -> count of ready players
+nicknames = {}
 lobby_lock = threading.Lock()     # Thread-safe lock for accessing shared data
 MAX_LOBBY = 4
 
@@ -57,10 +58,14 @@ def process_message(conn: socket.socket, message: str, addr: tuple):
         if message.startswith("START"):
             _, nickname = message.split(" ")
             with lobby_lock:
+                if nickname in nicknames:
+                    conn.sendall("ERROR_NICKNAME_TAKEN".encode())
+                    return
                 lobby_id = str(LOBBIES_ID)
                 LOBBIES_ID += 1
                 lobbies[lobby_id] = [conn]
                 lobbies_ready[lobby_id] = 0
+                nicknames[nickname] = conn
             conn.sendall(f"{lobby_id}-{len(lobbies[lobby_id])}-{lobbies_ready[lobby_id]}\n".encode())
 
         elif message.startswith("SHOW"):
@@ -86,10 +91,16 @@ def process_message(conn: socket.socket, message: str, addr: tuple):
         elif message.startswith("JOIN"):
             _, lobby_id, nickname = message.split(" ")
             with lobby_lock:
+                if nickname in nicknames:
+                    conn.sendall("ERROR_NICKNAME_TAKEN".encode())
+                    return
                 if lobby_id in lobbies and len(lobbies[lobby_id]) < MAX_LOBBY:
                     lobbies[lobby_id].append(conn)
+                    nicknames[nickname] = conn
                     response = f"{lobby_id}-{len(lobbies[lobby_id])}-{lobbies_ready[lobby_id]}\n"
-                    conn.sendall(response.encode())
+                    for client in lobbies[lobby_id]:
+                        client.sendall(response.encode())
+                    #conn.sendall(response.encode())
                 else:
                     conn.sendall("Cannot join lobby\n".encode())
 
@@ -98,9 +109,15 @@ def process_message(conn: socket.socket, message: str, addr: tuple):
             with lobby_lock:
                 if lobby_id in lobbies and conn in lobbies[lobby_id]:
                     lobbies[lobby_id].remove(conn)
+                    if nickname in nicknames:
+                        del nicknames[nickname]
                     if len(lobbies[lobby_id]) == 0:
                         del lobbies[lobby_id]
-                    conn.sendall("LEFT_SUCCESSFULLY\n".encode())
+                    else:
+                        response = f"{lobby_id}-{len(lobbies[lobby_id])}-{lobbies_ready[lobby_id]}\n"
+                        for client in lobbies[lobby_id]:
+                            client.sendall(response.encode())
+                    #conn.sendall("LEFT_SUCCESSFULLY\n".encode())
                 else:
                     conn.sendall("NOT_IN_LOBBY\n".encode())
 
@@ -111,19 +128,25 @@ def process_message(conn: socket.socket, message: str, addr: tuple):
                     conn.sendall(f"NOT-{lobby_id}-{len(lobbies[lobby_id])}".encode())
                 else:
                     lobbies_ready[lobby_id] = lobbies_ready.get(lobby_id, 0) + 1
+                    response = f"{lobby_id}-{len(lobbies[lobby_id])}-{lobbies_ready[lobby_id]}\n"
                     if len(lobbies[lobby_id]) - lobbies_ready[lobby_id] == 0:
                         for client in lobbies[lobby_id]:
                             client.send(f"START_GAME-{lobby_id}".encode())
                         conn.sendall(f"START_GAME-{lobby_id}".encode())
                         del lobbies[lobby_id]
                     else:
-                        conn.sendall(f"{lobby_id}-{len(lobbies[lobby_id])}-{lobbies_ready[lobby_id]}".encode())
+                        for client in lobbies[lobby_id]:
+                            client.sendall(response.encode())
+                        #conn.sendall(f"{lobby_id}-{len(lobbies[lobby_id])}-{lobbies_ready[lobby_id]}".encode())
 
         elif message.startswith("UNREADY"):
             _, nickname, lobby_id = message.split(" ")
             if lobbies_ready[lobby_id] - 1 >= 0:
                 lobbies_ready[lobby_id] -= 1
-            conn.sendall(f"{lobby_id}-{len(lobbies[lobby_id])}-{lobbies_ready[lobby_id]}".encode())
+            response = f"{lobby_id}-{len(lobbies[lobby_id])}-{lobbies_ready[lobby_id]}\n"
+            for client in lobbies[lobby_id]:
+                client.sendall(response.encode())
+            #conn.sendall(f"{lobby_id}-{len(lobbies[lobby_id])}-{lobbies_ready[lobby_id]}".encode())
 
         else:
             conn.sendall("UNKNOWN_COMMAND\n".encode())
