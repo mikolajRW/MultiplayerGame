@@ -4,19 +4,15 @@ Players can submit answers based on categories (like Country, City, Animal, etc.
 and receive points depending on how unique or correct their answers are.
 
 Key features:
-- Lobby is created based on the lobby from the previous server - 'server_lobby.py' file
-- The server sends a random letter and players must give answers starting with that letter.
-- All answers are validated against category-specific dictionaries.
-- Points are awarded:
-    * 15 points: if the answer is the only one in that category.
-    * 10 points: if the answer is correct and unique but others also answered in that category.
-    * 5 points: if the answer is a duplicate.
-- Players can leave lobbies, and lobbies close automatically when players leave.
-- Thread-safe handling of game state using locks.
-
-Modules:
-- Uses `socket` for networking, `threading` for handling multiple clients, and `collections` for counting.
-- Valid answers are loaded from text files located in the `dictionaries/` folder.
+Lobby is created based on the lobby from the previous server - 'server_lobby.py' file
+The server sends a random letter and players must give answers starting with that letter.
+All answers are validated against category-specific dictionaries.
+Points are awarded:
+    15 points: if the answer is the only one in that category.
+    10 points: if the answer is correct and unique but others also answered in that category.
+    5 points: if the answer is a duplicate.
+Players can leave lobbies, and lobbies close automatically when players leave.
+Thread-safe handling of game state using locks.
 """
 
 
@@ -37,12 +33,14 @@ LOBBIES_ID = 0
 lobbies = {}
 game_lock = threading.Lock()
 letter_for_lobby = {}
+answers_for_lobby = {}
 data_to_verify = {}
 game_categories = ["Country", "City", "Animal", "Thing", "Occupation", "Movie"]
 filepaths = ['dictionaries/countries.txt', 'dictionaries/cities.txt', 'dictionaries/animals.txt',
              'dictionaries/things.txt', 'dictionaries/occupations.txt', 'dictionaries/movies.txt']
 compare_answers = {}
 already_checked_answers = {}
+ans = ''
 
 def get_data_to_verify_ans():
     for filepath,category in zip(filepaths, game_categories):
@@ -63,12 +61,10 @@ def process_message_game(conn, message, addr):
                 conn.sendall("LOBBY CREATED".encode())
         elif message.startswith("SHOW_PUNCTUATION"):
             _, lobby_token = message.split(" ")
-            print("PUNKTYYY")
             with game_lock:
                 players_points = 'SHOW_PUNCTUATION-' + letter_for_lobby[lobby_token]
                 for player_data in lobbies[lobby_token]:
                     players_points += '-'+player_data[1] + '_' + player_data[2]
-                print(players_points)
                 conn.sendall(f"{players_points}".encode())
         elif message.startswith("LEAVE"):
             _, lobby_token = message.split(" ")
@@ -90,7 +86,7 @@ def process_message_game(conn, message, addr):
                 for player_data in lobbies[lobby_token]:
                     player_data[0].sendall("START_COUNTING".encode())
                 conn.sendall("START_COUNTING".encode())
-                print("WYSLANE")
+
         elif message.startswith("GATHER_ANS"):
             _, lobby_token, answers = message.split(" ")
             with game_lock:
@@ -111,27 +107,26 @@ def process_message_game(conn, message, addr):
                 conn.sendall(f"CHECK_ANSWERS".encode())
 
         elif message.startswith("CHECK_ANSWERS"):
-            _, lobby_token = message.split(" ")
+            _, lobby_token, nickname = message.split(" ")
             with game_lock:
                 if already_checked_answers.get(lobby_token) is not None and already_checked_answers.get(lobby_token) > 0:
-                    conn.sendall(f"SHOW_RESULTS-{letter_for_lobby[lobby_token]}".encode())
+                    conn.sendall(f"SHOW_RESULTS-{letter_for_lobby[lobby_token]}-{answers_for_lobby[lobby_token]}".encode())
                     already_checked_answers[lobby_token] += 1
-                    print(compare_answers, "POROWNMANE ODP")
-                    print(already_checked_answers[lobby_token], "JAK WYGLADA SPRAWDZONE")
                     if already_checked_answers[lobby_token] == len(lobbies[lobby_token]):
                         del already_checked_answers[lobby_token]
+                        del answers_for_lobby[lobby_token]
                     return
+                answers_for_lobby[lobby_token] = ''
                 category_answer_counter = defaultdict(Counter)
                 for category, answer, player_conn in compare_answers[lobby_token]:
                     if answer == "":
+                        answers_for_lobby[lobby_token] += f"{nickname}_{category}_{answer}_0-"
                         continue
                     category_answer_counter[category][answer.strip().lower()] += 1
                 print(category_answer_counter)
                 player_points = defaultdict(int)
 
                 for category, answer, player_conn in compare_answers[lobby_token]:
-                    # tu do poprawy nie brac conn tylko konktenty element z conn
-                    print(player_conn, "gracz")
                     if answer == "":
                         continue
                     normalized_answer = answer.strip().lower()
@@ -146,10 +141,10 @@ def process_message_game(conn, message, addr):
                         points = 5
                     else:
                         points = 0
+                    answers_for_lobby[lobby_token] += f"{nickname}_{category}_{answer}_{points}-"
                     player_points[player_conn.getpeername()[1]] += points
-                    print(player_points)
 
-                print(compare_answers)
+
                 del compare_answers[lobby_token]
                 already_checked_answers[lobby_token] = 1
                 for player_data in lobbies[lobby_token]:
@@ -157,7 +152,8 @@ def process_message_game(conn, message, addr):
                     points = int(player_data[2]) + points_gained
                     player_data[2] = str(points)
                 letter_for_lobby[lobby_token] = random.choice(letters)
-                conn.sendall(f"SHOW_RESULTS-{letter_for_lobby[lobby_token]}".encode())
+                print(answers_for_lobby)
+                conn.sendall(f"SHOW_RESULTS-{letter_for_lobby[lobby_token]}-{answers_for_lobby[lobby_token]}".encode())
     except Exception as e:
         print(f"[PROCESSING ERROR] {addr}: {e}")
         conn.sendall(f"ERROR {e}\n".encode())
