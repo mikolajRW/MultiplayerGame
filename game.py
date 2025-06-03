@@ -800,6 +800,7 @@ class Game:
                     if accept_ans_button is not None and accept_ans_button.checkForClick(mouse):
                         penalty_points = self.handle_counting(penalty_points, connection)
 
+
             # Logic responsible for time counting
             if not start_timer:
                 confirmation_start_time = pygame.time.get_ticks()
@@ -863,6 +864,8 @@ class Game:
             cursor = self.check_cursor(cursor)
             self.print_categories_and_answers()
             self.print_cursor(cursor, df)
+            self.draw_text(f"Player: {self.nickname}", game_font, category_color, SCREEN_WIDTH / 5, 20)
+
 
             pygame.display.update()
             pygame.display.flip()
