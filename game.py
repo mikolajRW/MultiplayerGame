@@ -16,7 +16,7 @@ import time
 MAX_LOBBY = 4
 NUMBER_OF_CATEGORIES = 6
 from pyexpat.errors import messages
-
+MAX_ROUNDS = 3
 # SET GLOBAL VARIABLES
 pygame.init()
 
@@ -315,14 +315,14 @@ class Game:
                 lobby_id = key.split('_')[2]
                 connection.send(f"JOIN {lobby_id} {self.nickname}\n")
                 # Check for response immediately after sending JOIN
-                last_msg = str(connection.get_latest_message()).split(" ")
-                if last_msg[0] == "ERROR_NICKNAME_TAKEN":
-                    self.draw_pretty_text("Nickname already taken! Choose another.", game_font, (255, 0, 0), bg_color, 50)
-                    pygame.display.update()
-                    pygame.time.delay(2000)
-                    self.close_network_connection(connection, "Nickname taken, returning to nickname input")
-                    self.enter_data(cursor)
-                    break
+                #last_msg = str(connection.get_latest_message()).split(" ")
+               # if last_msg[0] == "ERROR_NICKNAME_TAKEN":
+                #    self.draw_pretty_text("Nickname already taken! Choose another.", game_font, (255, 0, 0), bg_color, 50)
+                 #   pygame.display.update()
+                  #  pygame.time.delay(2000)
+                   # self.close_network_connection(connection, "Nickname taken, returning to nickname input")
+                   # self.enter_data(cursor)
+                   # break
 
 
     def handle_readiness_for_game(self, last_msg, connection, message):
@@ -492,7 +492,7 @@ class Game:
 
             # Reset 'active_buttons' list in every iteration - to check changes
             active_buttons = []
-
+            print(last_msg)
             # If we are in the lobby 'exit_button' is available
             if in_lobby:
                 active_buttons.extend([exit_button])
@@ -534,7 +534,7 @@ class Game:
                 self.lobby_type = "SHOW"
 
             # Show the current state of a specific lobby
-            elif self.lobby_type == "LOBBY_SHOW" and connection.get_latest_message() is not None:
+            elif self.lobby_type == "LOBBY_SHOW" and last_msg[0] is not None:
                 active_buttons.extend([exit_button, refresh_button_lobby, ready_button])
                 last_msg = last_msg[0].split("-")
                 last_rect = None
@@ -762,7 +762,7 @@ class Game:
         # If player submit empty answers three times - player is kicked from the game
         penalty_points = 0
 
-
+        round = 1
         while run:
             mouse = pygame.mouse.get_pos()
             screen.fill((235, 132, 250))
@@ -800,7 +800,8 @@ class Game:
                     if accept_ans_button is not None and accept_ans_button.checkForClick(mouse):
                         penalty_points = self.handle_counting(penalty_points, connection)
 
-
+            self.draw_text(f"ROUND - {round}/{MAX_ROUNDS}", game_font, category_color,
+                           SCREEN_WIDTH / 20 + SCREEN_WIDTH / 4 * 2.75, 500)
             # Logic responsible for time counting
             if not start_timer:
                 confirmation_start_time = pygame.time.get_ticks()
@@ -859,7 +860,8 @@ class Game:
             # Show round results
             elif last_msg is not None and last_msg[0] == 'SHOW_RESULTS':
                 df["Answer"] = [last_msg[1]] * len(game_categories)
-                run = self.show_round_results(run, last_msg, connection)
+                #run = self.show_round_results(run, last_msg, connection)
+                round += 1
                 connection.send(f"SHOW_PUNCTUATION {self.token}\n")
             cursor = self.check_cursor(cursor)
             self.print_categories_and_answers()
