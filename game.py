@@ -1,4 +1,5 @@
 import time
+from collections import defaultdict
 from time import sleep
 
 import pygame
@@ -36,6 +37,7 @@ bg_color = (240, 230, 255)
 
 game_font = pygame.font.Font(None, 50)
 text_font = pygame.font.SysFont("Arial", 70)
+results_font = pygame.font.Font(None, 36)  # Smaller font for results view
 
 random_letter = random.choice(string.ascii_letters)
 
@@ -323,8 +325,6 @@ class Game:
                     break
 
 
-
-
     def handle_readiness_for_game(self, last_msg, connection, message):
         prev_error = 0
         if last_msg[0] == "NOT":
@@ -470,6 +470,14 @@ class Game:
                             prev_error = 1
                         connection.send(f"LOBBY_SHOW {last_msg[0 + prev_error]}\n")
 
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and in_lobby:
+                    if ready_button is not None and ready_button.get_text() == "READY":
+                        self.handle_readiness_for_game(last_msg, connection, "READY")
+                        ready_button.set_text("UNREADY")
+                    elif ready_button is not None and ready_button.get_text() == "UNREADY":
+                        self.handle_readiness_for_game(last_msg, connection, "UNREADY")
+                        ready_button.set_text("READY")
+
                 # If mouse is over the button - the color of button changes
                 if event.type == pygame.MOUSEMOTION:
                     for button in active_buttons:
@@ -540,6 +548,162 @@ class Game:
 
             pygame.display.flip()
 
+    def show_round_results(self, run, last_msg, connection):
+        exit_button = Button(
+            width=SCREEN_WIDTH / 4,
+            height=SCREEN_HEIGHT / 10,
+            text="Exit Game",
+            font=game_font,
+            text_col=(100, 100, 100),
+            x=SCREEN_WIDTH - SCREEN_WIDTH / 4 - 20,
+            y=20
+        )
+
+        active_buttons = [exit_button]
+
+        start_time = pygame.time.get_ticks()
+        max_time = 15
+
+        results = []
+
+        try:
+            if len(last_msg) < 3:
+                raise ValueError("Invalid results message format")
+
+            for result in last_msg[2:]:
+                if result:
+                    parts = result.split("_")
+                    if len(parts) == 4:
+                        results.append({
+                            "nickname": parts[0],
+                            "category": parts[1],
+                            "answer": parts[2] if parts[2] else "None",
+                            "points": parts[3].strip("-")
+                        })
+        except Exception as e:
+            print(f"Error parsing results: {e}")
+            results = []
+
+        while run:
+            screen.fill((235, 132, 250))
+            mouse = pygame.mouse.get_pos()
+
+            # Organize results by player
+            player_results = defaultdict(list)
+            for result in results:
+                player_results[result["nickname"]].append(result)
+
+            pos_y = 100
+            last_rect = None
+            for nickname, answers in player_results.items():
+                total_points = sum(int(ans["points"]) for ans in answers)
+                last_rect = self.draw_pretty_text(
+                    f"{nickname} (Total: {total_points} points)",
+                    game_font, category_color, bg_color, pos_y, prev_rect=last_rect
+                )
+                pos_y += 50
+                last_rect.x += 200
+
+                for ans in answers:
+                    text = f"{ans['category']}: {ans['answer']} ({ans['points']} pts)"
+                    last_rect = self.draw_pretty_text(
+                        text, results_font, answer_color, bg_color, pos_y, prev_rect=last_rect
+                    )
+                    pos_y += 40
+
+            elapsed_time = (pygame.time.get_ticks() - start_time) // 1000
+            time_left = max(0, max_time - elapsed_time)
+            self.draw_text(
+                f"Continuing in {time_left} seconds",
+                results_font, category_color, SCREEN_WIDTH / 2 - 100, SCREEN_HEIGHT - 50
+            )
+
+            for button in active_buttons:
+                button.draw(screen)
+                button.change_color(mouse)
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    connection.send(f"LEAVE {self.token}\n")
+                    self.close_network_connection(connection, "LEAVING GAME")
+                    self.menu(run, cursor, df)
+                    return run
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if exit_button.checkForClick(mouse):
+                        connection.send(f"LEAVE {self.token}\n")
+                        self.close_network_connection(connection, "LEAVING GAME")
+                        self.menu(run, cursor, df)
+                        return run
+                if event.type == pygame.MOUSEMOTION:
+                    for button in active_buttons:
+                        button.change_color(mouse)
+
+            if time_left == 0:
+                return run
+
+            pygame.display.flip()
+
+        return run
+
+    def show_leaderboard(self, run, last_msg, connection):
+        exit_button = Button(
+            width=SCREEN_WIDTH / 4,
+            height=SCREEN_HEIGHT / 10,
+            text="Exit to Menu",
+            font=game_font,
+            text_col=(100, 100, 100),
+            x=SCREEN_WIDTH - SCREEN_WIDTH / 4 - 20,
+            y=20
+        )
+        active_buttons = [exit_button]
+
+        # Define players that are in the lobby
+        players = []
+        try:
+            for player in last_msg[1:]:
+                if player:
+                    nickname, points = player.split("_")
+                    players.append({"nickname": nickname, "points": int(points)})
+
+        except Exception as e:
+            print(f"Error parsing leaderboard: {e}")
+            players = []
+
+        while run:
+            screen.fill((235, 132, 250))
+            mouse = pygame.mouse.get_pos()
+            last_rect = self.draw_pretty_text(
+                "Final Leaderboard", game_font, category_color, bg_color, 50
+            )
+            pos_y = 100
+
+            for player in players:
+                last_rect = self.draw_pretty_text(
+                    f"{player['nickname']}: {player['points']} points",
+                    game_font, answer_color, bg_color, pos_y, prev_rect=last_rect
+                )
+
+                pos_y += 50
+
+            for button in active_buttons:
+                button.draw(screen)
+                button.change_color(mouse)
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.close_network_connection(connection, "LEAVING GAME")
+                    self.menu(run, cursor, df)
+                    return run
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if exit_button.checkForClick(mouse):
+                        self.close_network_connection(connection, "LEAVING GAME")
+                        self.menu(run, cursor, df)
+                        return run
+                if event.type == pygame.MOUSEMOTION:
+                    for button in active_buttons:
+                        button.change_color(mouse)
+            pygame.display.flip()
+        return run
 
     def gameplay(self, run, cursor, df):
         """
@@ -552,7 +716,6 @@ class Game:
         Displaying players’ scores and current round data
         Exiting the game if a player leaves
         """
-
 
         # Establish connection with server responsible for handling the game
         HOST = "localhost"
@@ -613,18 +776,19 @@ class Game:
                     self.menu(run, cursor, df)
                 if event.type == pygame.KEYDOWN:
                     # Logic responsible for inputting the answers and printing first letter in the particular round
-                    if event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_LEFT:
-                            cursor -= 1
-                        elif event.key == pygame.K_RIGHT or event.key == pygame.K_RETURN:
-                            cursor += 1
-                        elif event.key == pygame.K_BACKSPACE:
-                            if len(df.at[cursor, "Answer"]) > 1:
-                                df.at[cursor, "Answer"] = df.at[cursor, "Answer"][:-1]
-                        elif event.unicode.isalpha() or event.unicode.isspace():
-                            df.at[cursor, "Answer"] += event.unicode
-                        else:
-                            print("Wrong input!")
+                    if event.key == pygame.K_LEFT:
+                        cursor -= 1
+                    elif event.key == pygame.K_RIGHT:
+                        cursor += 1
+                    elif event.key == pygame.K_BACKSPACE:
+                        if len(df.at[cursor, "Answer"]) > 1:
+                            df.at[cursor, "Answer"] = df.at[cursor, "Answer"][:-1]
+                    elif event.unicode.isalpha() or event.unicode.isspace():
+                        df.at[cursor, "Answer"] += event.unicode
+                    elif event.key == pygame.K_RETURN and accept_ans_button is not None:
+                        penalty_points = self.handle_counting(penalty_points, connection)
+                    else:
+                        print("Wrong input!")
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     # When players clicked on 'exit_button' button - player leaves a lobby, disconnects with the server and the main menu is visible
                     if exit_button.checkForClick(mouse):
@@ -668,8 +832,6 @@ class Game:
             except Exception as e:
                 last_msg = connection.get_latest_message()
 
-
-
             pos_y = SCREEN_HEIGHT / 6
             # Show points of all players in a lobby
             if last_msg is not None and last_msg[0] == 'SHOW_PUNCTUATION':
@@ -683,6 +845,9 @@ class Game:
                 self.close_network_connection(connection, "TOO LITTLE PLAYERS TO PLAY GAME")
                 self.menu(run, cursor, df)
             # Start counting if one player submits his answers
+            elif last_msg is not None and last_msg[0] == 'FINISH_GAME':
+                self.show_leaderboard(run, last_msg, connection)
+                return run
             elif last_msg is not None and last_msg[0] == 'START_COUNTING':
                 start_timer = True
                 connection.send(f"SHOW_PUNCTUATION {self.token}\n")
@@ -690,15 +855,14 @@ class Game:
             elif last_msg is not None and last_msg[0] == 'CHECK_ANSWERS':
                 time.sleep(2)
                 connection.send(f"CHECK_ANSWERS {self.token} {self.nickname}\n")
-            # Print results after calculating the points
+            # Show round results
             elif last_msg is not None and last_msg[0] == 'SHOW_RESULTS':
                 df["Answer"] = [last_msg[1]] * len(game_categories)
+                run = self.show_round_results(run, last_msg, connection)
                 connection.send(f"SHOW_PUNCTUATION {self.token}\n")
             cursor = self.check_cursor(cursor)
             self.print_categories_and_answers()
             self.print_cursor(cursor, df)
-
-
 
             pygame.display.update()
             pygame.display.flip()
