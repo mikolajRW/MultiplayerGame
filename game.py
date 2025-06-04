@@ -154,17 +154,100 @@ class Game:
 
         return bar_rect
 
+    def show_rules(self):
+        rules_active = True
+        scroll_offset = 0
+        rules_text = [
+            "Categories: ",
+            "- Country",
+            "- City",
+            "- Animal",
+            "- Thing",
+            "- Occupation",
+            "- Movie",
+            "",
+            "Each round starts with a random letter",
+            "",
+            "Fill answers starting with that letter",
+            "",
+            "Scoring:",
+            "- 15 pts: Only valid answer in category",
+            "- 10 pts: Valid + unique (others answered)",
+            "- 5 pts: Duplicate valid answer",
+            "- 0 pts: Invalid/empty answer",
+            "",
+            "Time: 10-second countdown after first submission",
+            "Penalty: 3 empty submissions = kick",
+            "Rounds: 3 per game"
+        ]
+
+        while rules_active:
+            screen.fill((235, 132, 250))
+
+            box_top = 50
+            box_height = SCREEN_HEIGHT - 150
+            rules_rect = pygame.Rect(50, box_top, SCREEN_WIDTH - 100, box_height)
+            pygame.draw.rect(screen, (255, 255, 255), rules_rect, border_radius=10)
+
+            y_pos = box_top + 30 + scroll_offset
+            for line in rules_text:
+                if box_top + 1 <= y_pos <= box_top + box_height - 35:
+                    text_surface = game_font.render(line, True, (0, 0, 0))
+                    screen.blit(text_surface, (rules_rect.x + 30, y_pos))
+                y_pos += 30
+
+            close_button = Button(
+                width=200,
+                height=50,
+                text="Close",
+                font=game_font,
+                text_col=(100, 100, 100),
+                x=SCREEN_WIDTH // 2 - 100,
+                y=box_top + box_height + 30
+            )
+            close_button.draw(screen)
+
+            mouse = pygame.mouse.get_pos()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    rules_active = False
+                    return False
+
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if close_button.checkForClick(pygame.mouse.get_pos()):
+                        rules_active = False
+                    if event.button == 4:
+                        scroll_offset = min(0, scroll_offset + 20)
+                    if event.button == 5:
+                        max_offset = -(len(rules_text) * 30 - (box_height - 100))
+                        scroll_offset = max(max_offset, scroll_offset - 20)
+                if event.type == pygame.MOUSEMOTION:
+                    close_button.change_color(mouse)
+
+            pygame.display.update()
+            pygame.display.flip()
+        return True
+
 
     def menu(self, run, cursor, df):
 
         create_lobby_button = Button(width=SCREEN_WIDTH / 2, height=SCREEN_HEIGHT / 5, text="New Lobby",
                                      font=text_font, text_col=(100, 100, 100), x=SCREEN_WIDTH / 2 - SCREEN_WIDTH / 4,
-                                     y=SCREEN_HEIGHT - SCREEN_HEIGHT / 1.5)
+                                     y=SCREEN_HEIGHT - SCREEN_HEIGHT/1.25)
         join_lobby_button = Button(width=SCREEN_WIDTH / 2, height=SCREEN_HEIGHT / 5, text="Show Lobbies",
                                    font=text_font, text_col=(100, 100, 100), x=SCREEN_WIDTH / 2 - SCREEN_WIDTH / 4,
-                                   y=SCREEN_HEIGHT - SCREEN_HEIGHT / 2.5)
+                                   y=SCREEN_HEIGHT - SCREEN_HEIGHT / 1.85)
+        rules_button = Button(
+            width=SCREEN_WIDTH / 2, height=SCREEN_HEIGHT / 5,
+            text="Game Rules",
+            font=text_font,
+            text_col=(100, 100, 100),
+            x=SCREEN_WIDTH / 2 - SCREEN_WIDTH / 4,
+            y=SCREEN_HEIGHT - SCREEN_HEIGHT / 3.5
+        )
         # exit_button = draw_text("EXIT", text_font, (255, 255, 255), SCREEN_WIDTH/2, SCREEN_HEIGHT/1.8)
-        buttons = [join_lobby_button, create_lobby_button]
+        buttons = [join_lobby_button, create_lobby_button, rules_button]
 
         while run:
             screen.fill((235, 132, 250))
@@ -188,6 +271,8 @@ class Game:
                     if join_lobby_button.checkForClick(mouse):
                         self.lobby_type = "SHOW"
                         self.enter_data(cursor)
+                    if rules_button.checkForClick(mouse):
+                        self.show_rules()
                 if event.type == pygame.MOUSEMOTION:
                     for button in buttons:
                         button.change_color(mouse)
