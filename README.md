@@ -114,7 +114,7 @@ python client.py
 ## Game Rules
 
 - **Categories**: Country, City, Animal, Thing, Occupation, Movie  
-- **Rounds**: 3 per game  
+- **Rounds**: 4 per game  
 - **Scoring**:  
 - **15 points**: Only correct answer in category  
 - **10 points**: Correct and unique answer (but others answered too)  
@@ -158,25 +158,34 @@ python client.py
 ## Contributions
 
 ### Mikołaj Woźniak
+- Implement client-server communication
+- Implement 'lobby-server' server responsible for creating and handling a lobby 
+- Implement 'game-server' server responsible for handling server-client communication during the game 
+- Implement algorithm responsible for calculating the points after every round in the game
+- Implement lobby logic
+- Synchronize game with the server
+- Add timer - which is turned on after every round
+- Developed README file
+
 
 ### Szymon Róźycki
-- created idea of the game
-- designed UI
-- designed logic behind storing answers
-- designed cursor movement
-- developed dictionaries and images
-- managed error handling
-- developed functionality of showing round results
-- developed functionality of showing leaderboard results
-- tested game bugs and fixed inconsistencies
-- developed README file
+- Created idea of the game
+- Designed UI
+- Designed logic behind storing answers
+- Designed cursor movement
+- Developed dictionaries and images
+- Managed error handling
+- Developed functionality of showing round results
+- Developed functionality of showing leaderboard results
+- Tested game bugs and fixed inconsistencies
+- Developed README file
 
 ### Michal Sondej
-- improved the visual presentation of the game
-- added rules screen
-- added exit game functionality
-- added leave lobby functionality
-- developed README file
+- Improved the visual presentation of the game
+- Added rules screen
+- Added exit game functionality
+- Added leave lobby functionality
+- Developed README file
 
 
 ---
