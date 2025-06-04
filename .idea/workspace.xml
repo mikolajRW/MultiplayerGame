@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8027093a-074d-42e3-a59b-05bc92598085" name="Changes" comment="added draw_pretty_text function">
-      <change beforePath="$PROJECT_DIR$/.idea/MultiplayerGame.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/MultiplayerGame.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
-    </list>
+    <list default="true" id="8027093a-074d-42e3-a59b-05bc92598085" name="Changes" comment="added a rules button in the main menu, which displays the rules of the game" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -261,7 +256,21 @@
       <option name="project" value="LOCAL" />
       <updated>1748801570186</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="added player nickname display during gameplay">
+      <created>1748966078814</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1748966078814</updated>
+    </task>
+    <task id="LOCAL-00006" summary="added a rules button in the main menu, which displays the rules of the game">
+      <created>1749038800389</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1749038800389</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -284,7 +293,9 @@
     <MESSAGE value="added button hovering color change (aprat from the 'inside lobby' and 'all lobbies' view)" />
     <MESSAGE value="added button hovering color change in lobbies" />
     <MESSAGE value="added draw_pretty_text function" />
-    <option name="LAST_COMMIT_MESSAGE" value="added draw_pretty_text function" />
+    <MESSAGE value="added player nickname display during gameplay" />
+    <MESSAGE value="added a rules button in the main menu, which displays the rules of the game" />
+    <option name="LAST_COMMIT_MESSAGE" value="added a rules button in the main menu, which displays the rules of the game" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/MultiplayerGame$client.coverage" NAME="client Coverage Results" MODIFIED="1748549221231" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
