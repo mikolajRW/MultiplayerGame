@@ -124,6 +124,21 @@ images/ # Game assets
 
 ---
 
+## Contributions
+
+### Mikołaj Woźniak
+
+### Szymon Róźycki
+
+### Michal Sondej
+- improved the visual presentation of the game
+- added rules screen
+- added exit game functionality
+- added leave lobby functionality
+
+
+---
+
 ## Credits
 
 Developed as a **Python networking project**.  
