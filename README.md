@@ -160,12 +160,46 @@ python client.py
 ### Mikołaj Woźniak
 
 ### Szymon Róźycki
+- created idea of the game
+- designed UI
+- designed logic behind storing answers
+- designed cursor movement
+- developed dictionaries and images
+- managed error handling
+- developed functionality of showing round results
+- developed functionality of showing leaderboard results
+- tested game bugs and fixed inconsistencies
+- developed README file
 
 ### Michal Sondej
 - improved the visual presentation of the game
 - added rules screen
 - added exit game functionality
 - added leave lobby functionality
+- developed README file
+
+
+---
+
+## Screenshots of the game
+
+### Starting menu
+![img.png](images/img.png)
+
+### Lobby creation
+![img_2.png](images/img_2.png)
+
+### List of lobbies
+![img_3.png](images/img_3.png)
+
+### Inside the lobby
+![img_4.png](images/img_4.png)
+
+### Game round
+![img_5.png](images/img_5.png)
+
+### Game rules
+![img_6.png](images/img_6.png)
 
 
 ---
