@@ -2,329 +2,794 @@ accountant
 actor
 actuary
 acupuncturist
-administrator
-advertiser
+advertising manager
 aerospace engineer
+agricultural engineer
 agricultural scientist
 air traffic controller
+aircraft mechanic
+airline pilot
+ambulance driver
+anesthesiologist
+animal caretaker
+animator
 anthropologist
+app developer
 arborist
 archaeologist
 architect
+archivist
+art director
 artist
 astronomer
-athlete
+athletic trainer
+attorney
 audiologist
 auditor
-author
+auto mechanic
 baker
-banker
+bank teller
 barber
-barista
 bartender
 biochemist
-biologist
 biomedical engineer
-blacksmith
-blogger
+biologist
+boilermaker
 bookkeeper
-botanist
-brewer
-builder
+brickmason
 bus driver
 business analyst
 butcher
 cabinetmaker
-calligrapher
+cardiologist
 carpenter
 cartographer
 cashier
-caterer
-ceramicist
 chef
+chemical engineer
 chemist
+childcare worker
 chiropractor
-cinematographer
 civil engineer
+claims adjuster
 clergy
-clerk
+clinical psychologist
+cnc machinist
 coach
-cobbler
-comedian
-composer
+commercial diver
+computer hardware engineer
 computer programmer
-conductor
-conservationist
-construction worker
-consultant
-coppersmith
-costume designer
+computer systems analyst
+conservation scientist
+construction laborer
+construction manager
+copywriter
+corrections officer
+cost estimator
 counselor
-courier
-cryptographer
-curator
-dancer
+court reporter
+crane operator
+credit analyst
+customer service representative
 data analyst
 data scientist
+database administrator
+dental assistant
+dental hygienist
 dentist
 dermatologist
-designer
+desktop publisher
 detective
-developer
 dietitian
-diplomat
-director
 disc jockey
+dispatcher
 doctor
 dog trainer
-doula
-dramaturg
-dressmaker
-driver
+drilling engineer
+drywall installer
 ecologist
 economist
 editor
+electrical engineer
 electrician
-electronics technician
-embroiderer
+elementary school teacher
+elevator installer
+emergency medical technician
+endocrinologist
+energy engineer
 engineer
-engraver
 entomologist
-entrepreneur
 environmental scientist
+epidemiologist
 ergonomist
-esthetician
 event planner
-executive
-exobiologist
-falconer
-farmer
+exercise physiologist
+exterminator
 fashion designer
-film editor
-filmmaker
 financial advisor
+financial analyst
 firefighter
+fish and game warden
 fisher
 fitness trainer
 flight attendant
 florist
 food scientist
+forensic scientist
 forester
-framer
-fundraiser
-furniture maker
+funeral director
 game designer
 gardener
-geneticist
+general practitioner
+genetic counselor
 geographer
 geologist
-glassblower
 glazier
-goldsmith
 graphic designer
-grocer
-groomer
-guidance counselor
-guitarist
-gynecologist
 hairdresser
-handyman
-hardware engineer
 health educator
+heating and cooling technician
+high school teacher
 historian
-homeopath
-horticulturist
+home health aide
 hotel manager
+human resources manager
 hydrologist
 illustrator
-immunologist
 industrial designer
-inspector
-instructor
+industrial engineer
 insurance agent
 interior designer
 interpreter
-inventor
-investigator
-it specialist
-jailer
+it manager
 janitor
 jeweler
 journalist
 judge
-juggler
 kindergarten teacher
-kinesiologist
-knitter
-lab technician
+laboratory technician
 landscape architect
-laundry worker
-lecturer
-legal assistant
+lawyer
 librarian
+library technician
+licensed practical nurse
 lifeguard
-linguist
 loan officer
 locksmith
-logistician
+logistics manager
 machinist
-magician
-mail carrier
+maintenance worker
 makeup artist
-manager
-manufacturer
+management consultant
+manicurist
 marine biologist
-marketer
-mason
+market research analyst
+marketing manager
 massage therapist
 mathematician
-mechanic
+mechanical engineer
 mediator
 medical assistant
-medical technician
+medical coder
+medical equipment repairer
+medical secretary
+medical transcriptionist
 meteorologist
 microbiologist
+middle school teacher
 midwife
-military officer
-milliner
+mining engineer
 model
+music teacher
 musician
-nanny
-navigator
+network administrator
 neurologist
-neurosurgeon
-notary
 nuclear engineer
-nurse
+nurse practitioner
 nutritionist
-oceanographer
 occupational therapist
-office manager
+oceanographer
+office clerk
 oncologist
-opera singer
 operations manager
 optician
 optometrist
-ornithologist
+oral surgeon
 orthodontist
-osteopath
 painter
-paleontologist
 paralegal
 paramedic
+park ranger
 pathologist
 pediatrician
-performer
+personal trainer
 pharmacist
-philosopher
+pharmacy technician
+phlebotomist
 photographer
+physical therapist
+physician assistant
 physicist
-physiotherapist
-pianist
 pilot
-plasterer
 plumber
 podiatrist
-poet
 police officer
-politician
-potter
+political scientist
+postmaster
 preschool teacher
 principal
-printer
+private investigator
+probation officer
 producer
 professor
-programmer
 project manager
-proofreader
-property manager
-prosthetist
 psychiatrist
 psychologist
-publicist
-publisher
-puppeteer
-quilter
-radio host
-radiologist
+public relations specialist
+purchasing manager
+radiologic technologist
 real estate agent
 receptionist
-recruiter
+recreational therapist
 referee
+registered nurse
+rehabilitation counselor
 reporter
-researcher
-restorer
-retailer
+respiratory therapist
+retail manager
 roofer
-sailor
-salesperson
+sales engineer
+sales manager
+school counselor
+school psychologist
 scientist
-sculptor
-seamstress
 secretary
 security guard
 set designer
-shipwright
-shoemaker
-sign language interpreter
-singer
-skier
+sewer
+sheet metal worker
 social worker
-software engineer
-soldier
-sommelier
+sociologist
+software developer
+soil scientist
 sound engineer
-speech therapist
-sports agent
+special education teacher
+speech pathologist
+sports coach
 statistician
-stenographer
 stockbroker
 stonemason
-stylist
+substance abuse counselor
 surgeon
 surveyor
-swimmer
 systems analyst
-tailor
-tanner
-tattoo artist
-taxidermist
-teacher
+tax examiner
+tax preparer
+teacher assistant
 technical writer
-technician
-teller
+telemarketer
 therapist
-tiler
-toolmaker
+tile setter
+tool and die maker
 tour guide
-trader
-trainer
+toxicologist
 translator
+transportation manager
 travel agent
 truck driver
-tutor
-typist
 ultrasound technician
-undertaker
-underwriter
 urban planner
 urologist
-valet
-ventriloquist
 veterinarian
+veterinary technician
 videographer
-virologist
-voice actor
 waiter
-warehouse worker
-watchmaker
-weaver
 web designer
 web developer
 welder
-winemaker
+wildlife biologist
 writer
-x-ray technician
-yoga instructor
-youth counselor
 zoologist
+administrative assistant
+advertising sales agent
+agricultural inspector
+aircraft assembler
+animal breeder
+aquaculturist
+arborist
+art therapist
+astronaut
+athlete
+auctioneer
+auto body repairer
+baker
+barista
+biomedical technician
+blacksmith
+boat builder
+bricklayer
+bridge engineer
+budget analyst
+building inspector
+bus mechanic
+business consultant
+cab driver
+call center representative
+camera operator
+cardiothoracic surgeon
+caregiver
+carpet installer
+cartoonist
+caterer
+chemical technician
+chief executive officer
+child psychologist
+cinematographer
+city planner
+civil engineering technician
+claims examiner
+clinical social worker
+cnc operator
+commercial pilot
+communications specialist
+community health worker
+compliance officer
+computer repair technician
+computer support specialist
+concrete finisher
+conservationist
+construction equipment operator
+construction worker
+content creator
+contractor
+copy editor
+correctional officer
+cosmetologist
+costume designer
+court clerk
+credit counselor
+curator
+customs officer
+cybersecurity analyst
+dance instructor
+data entry clerk
+database developer
+dental laboratory technician
+diesel mechanic
+dietetic technician
+digital marketer
+dispatch operator
+diver
+documentary filmmaker
+drone pilot
+dry cleaner
+econometrician
+electrical technician
+emergency dispatcher
+endodontist
+energy auditor
+environmental engineer
+equipment operator
+esthetician
+ethnographer
+event coordinator
+executive assistant
+exercise scientist
+farm manager
+farmer
+fashion stylist
+film director
+financial planner
+fire inspector
+fish farmer
+flooring installer
+food service manager
+forensic accountant
+forensic psychologist
+forest ranger
+freight forwarder
+fundraiser
+furniture maker
+game warden
+general contractor
+geneticist
+geophysicist
+glassblower
+graphic artist
+groundskeeper
+gynecologist
+healthcare administrator
+helicopter pilot
+historian
+home inspector
+horticulturist
+hospitalist
+hotel clerk
+human resources specialist
+hvac technician
+illustrator
+industrial mechanic
+insurance adjuster
+insurance underwriter
+intelligence analyst
+interior decorator
+investment banker
+it consultant
+janitorial supervisor
+jewelry designer
+labor relations specialist
+laboratory assistant
+landscaper
+language teacher
+laundry worker
+law clerk
+legal assistant
+lighting designer
+logistics coordinator
+machine operator
+maintenance technician
+management analyst
+manufacturing engineer
+marine engineer
+market analyst
+massage therapist
+materials scientist
+mechanical technician
+media planner
+medical illustrator
+medical researcher
+mental health counselor
+merchandiser
+metal fabricator
+microbiologist
+mining technician
+model maker
+music producer
+nanny
+network engineer
+neurosurgeon
+news anchor
+notary public
+nuclear technician
+nurse anesthetist
+nutrition counselor
+occupational health specialist
+oceanographer
+office manager
+ophthalmologist
+optical technician
+orchestra conductor
+orthopedic surgeon
+paleontologist
+paralegal
+park naturalist
+parking attendant
+parts salesperson
+pastry chef
+payroll clerk
+pediatric nurse
+personal chef
+pet groomer
+pharmaceutical scientist
+pharmacy aide
+photojournalist
+physical therapy assistant
+physiotherapist
+plant scientist
+plasterer
+plastic surgeon
+plumber
+policy analyst
+political consultant
+postal worker
+preschool director
+printing press operator
+private chef
+process engineer
+procurement specialist
+production manager
+programmer
+project coordinator
+property manager
+prosthetist
+psychiatric nurse
+public health educator
+publicist
+purchasing agent
+quality control inspector
+radiation therapist
+radio announcer
+railroad conductor
+real estate appraiser
+real estate broker
+recreation worker
+recruiter
+refinery operator
+rehabilitation specialist
+research analyst
+restaurant manager
+retail salesperson
+risk manager
+roboticist
+safety engineer
+sales representative
+sanitation worker
+school administrator
+school bus driver
+sculptor
+security analyst
+seismologist
+set decorator
+ship captain
+sign language interpreter
+skincare specialist
+social media manager
+software engineer
+solar installer
+sound designer
+special effects artist
+speech therapist
+sports agent
+stage manager
+statistician
+stock clerk
+store manager
+structural engineer
+stunt performer
+supply chain manager
+surgeon
+survey researcher
+systems engineer
+tailor
+tax attorney
+teacher
+technical support specialist
+telecommunications technician
+television producer
+textile designer
+theater director
+title examiner
+tour operator
+toxicologist
+traffic engineer
+train conductor
+transcriptionist
+translator
+transportation planner
+travel consultant
+tree surgeon
+truck mechanic
+tutor
+tv repair technician
+ultrasonographer
+upholsterer
+urban designer
+ux designer
+vascular surgeon
+veterinary assistant
+video editor
+virologist
+voice actor
+warehouse manager
+water treatment operator
+webmaster
+wedding planner
+wildlife rehabilitator
+wind turbine technician
+woodworker
+yoga instructor
+zookeeper
+account executive
+acoustical engineer
+aerial photographer
+aerodynamics engineer
+agricultural technician
+air quality specialist
+aircraft dispatcher
+animal control officer
+antique dealer
+aquarium curator
+arboriculturist
+art appraiser
+artificial intelligence engineer
+astrophysicist
+athletic director
+audio engineer
+auto detailer
+aviation inspector
+bank manager
+biomedical researcher
+biotechnologist
+blockchain developer
+boat mechanic
+brewmaster
+building manager
+business development manager
+cable technician
+career counselor
+carpentry instructor
+ceramicist
+chief financial officer
+child welfare worker
+circus performer
+civil rights attorney
+climate scientist
+clinical researcher
+cloud architect
+coastal engineer
+college advisor
+commercial fisherman
+communications director
+community organizer
+compliance analyst
+computer network architect
+conservation biologist
+construction estimator
+content strategist
+corporate trainer
+costume maker
+court interpreter
+credit manager
+crime scene investigator
+cryptocurrency analyst
+culinary instructor
+customer success manager
+cybersecurity engineer
+data engineer
+demolition expert
+dental surgeon
+design engineer
+digital artist
+disaster recovery specialist
+dog breeder
+drama teacher
+ecotourism guide
+electrical inspector
+elevator mechanic
+emergency manager
+energy consultant
+entertainment lawyer
+environmental consultant
+epidemiology researcher
+equine therapist
+ergonomics specialist
+ethical hacker
+event manager
+executive chef
+exhibit designer
+facilities manager
+family therapist
+farm equipment mechanic
+fashion photographer
+field biologist
+financial controller
+fire chief
+flight engineer
+food stylist
+forensic entomologist
+freelance writer
+furniture designer
+game developer
+genealogist
+geothermal technician
+glass artist
+greenhouse manager
+health coach
+home stager
+hospital administrator
+humanitarian aid worker
+hydrogeologist
+immunologist
+industrial hygienist
+instructional designer
+insurance broker
+intellectual property lawyer
+it project manager
+laboratory manager
+land surveyor
+language pathologist
+lighting technician
+livestock farmer
+logistics analyst
+marine archaeologist
+marketing coordinator
+mechanical designer
+media buyer
+medical physicist
+mental health technician
+mining geologist
+mobile app developer
+music therapist
+network security analyst
+neuropathologist
+news producer
+nurse educator
+nutritionist
+ocean engineer
+operations analyst
+optical engineer
+orchestrator
+organic farmer
+orthotist
+paleobotanist
+parks and recreation director
+patent attorney
+payroll manager
+pediatric dentist
+personal stylist
+petroleum engineer
+pharmacy manager
+photo editor
+physical education teacher
+plant breeder
+policy advisor
+portrait photographer
+precision machinist
+printmaker
+product designer
+professional organizer
+prosthodontist
+psychiatric aide
+public policy analyst
+quality assurance analyst
+radiation oncologist
+radio producer
+railroad engineer
+real estate developer
+recreation therapist
+renewable energy engineer
+research scientist
+restaurateur
+retirement planner
+rigger
+robotics engineer
+roofing contractor
+sales analyst
+school librarian
+scriptwriter
+security consultant
+seismic engineer
+ship engineer
+social media strategist
+software tester
+soil conservationist
+sound technician
+space scientist
+sports psychologist
+stagehand
+stock trader
+structural steel worker
+substance abuse counselor
+supply chain analyst
+surgical technologist
+sustainability consultant
+systems administrator
+tax consultant
+technical illustrator
+telecommunications engineer
+textile engineer
+theater producer
+tourism manager
+traffic technician
+transportation engineer
+travel photographer
+tree climber
+underwriter
+urban forester
+user experience researcher
+veterinary pathologist
+video game designer
+vineyard manager
+virtual reality developer
+visual effects artist
+voiceover artist
+waste management specialist
+water resource engineer
+web analyst
+wedding photographer
+wildlife photographer
+wind energy engineer
+wine maker
+woodcarver
+youth counselor
+zoo curator
