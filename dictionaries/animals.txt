@@ -1,0 +1,500 @@
+african elephant
+blue whale
+giant panda
+bengal tiger
+gray wolf
+polar bear
+red kangaroo
+african lion
+bottlenose dolphin
+mountain gorilla
+cheetah
+black rhinoceros
+humpback whale
+giant anteater
+platypus
+echidna
+koala
+two-toed sloth
+three-toed sloth
+manatee
+dugong
+sperm whale
+orca
+chimpanzee
+bonobo
+orangutan
+snow leopard
+jaguar
+leopard
+grizzly bear
+black bear
+red fox
+arctic fox
+african wild dog
+dingo
+tasmanian devil
+wombat
+wallaby
+meerkat
+fennec fox
+binturong
+pangolin
+aardvark
+okapi
+narwhal
+beluga whale
+hippopotamus
+pygmy hippopotamus
+giraffe
+plains zebra
+mountain zebra
+grevy’s zebra
+pronghorn
+bison
+musk ox
+caribou
+moose
+elk
+red deer
+sambar deer
+saiga antelope
+impala
+springbok
+wildebeest
+cape buffalo
+giant sable antelope
+bongo
+kudu
+eland
+rock hyrax
+tree hyrax
+vampire bat
+fruit bat
+horseshoe bat
+naked mole rat
+capybara
+beaver
+african porcupine
+north american porcupine
+chinchilla
+ring-tailed lemur
+aye-aye
+tarsier
+slow loris
+galago
+marmoset
+tamarin
+capuchin monkey
+howler monkey
+spider monkey
+mandrill
+olive baboon
+hamadryas baboon
+colobus monkey
+proboscis monkey
+golden lion tamarin
+ocelot
+margay
+serval
+caracal
+clouded leopard
+lynx
+bobcat
+puma
+red panda
+raccoon
+kinkajou
+coati
+badger
+wolverine
+otter
+sea lion
+fur seal
+walrus
+mongoose
+hyena
+fossa
+numbat
+quokka
+bilby
+sugar glider
+flying fox
+bushbuck
+duiker
+klipspringer
+dik-dik
+gazelle
+waterbuck
+hartebeest
+topi
+blesbok
+gemsbok
+sitatunga
+nyala
+chamois
+ibex
+markhor
+tahr
+musk deer
+muntjac
+pudu
+roe deer
+white-tailed deer
+yak
+gaur
+takin
+saola
+bactrian camel
+dromedary
+llama
+alpaca
+vicugna
+guanaco
+bald eagle
+african grey parrot
+scarlet macaw
+blue-and-yellow macaw
+ostrich
+emu
+cassowary
+kiwi
+emperor penguin
+king penguin
+adelie penguin
+wandering albatross
+laysan albatross
+frigatebird
+brown pelican
+great white pelican
+greater flamingo
+andean condor
+harpy eagle
+osprey
+peregrine falcon
+kestrel
+barn owl
+snowy owl
+great horned owl
+toco toucan
+keel-billed toucan
+rhinoceros hornbill
+great hornbill
+kookaburra
+belted kingfisher
+common kingfisher
+ruby-throated hummingbird
+anna’s hummingbird
+lyrebird
+greater bird of paradise
+wilson’s bird of paradise
+golden pheasant
+peacock
+secretary bird
+andean vulture
+turkey vulture
+scarlet ibis
+roseate spoonbill
+great blue heron
+snowy egret
+marabou stork
+white stork
+whooping crane
+red-crowned crane
+atlantic puffin
+tufted puffin
+kakapo
+takahe
+hoatzin
+quetzal
+sunbird
+weaver bird
+horned puffbird
+jacana
+shoebill
+hammerkop
+hoopoe
+roller
+bee-eater
+motmot
+trogon
+partridge
+quail
+guineafowl
+turaco
+cuckoo
+roadrunner
+ani
+swift
+swallow
+martin
+raven
+crow
+magpie
+jay
+woodpecker
+flicker
+sapsucker
+starling
+myna
+oriole
+finch
+sparrow
+cardinal
+bluebird
+robin
+thrush
+warbler
+tanager
+bunting
+grosbeak
+falcon
+hawk
+kite
+harrier
+bustard
+seriema
+tinamou
+grebe
+loon
+cormorant
+anhinga
+gannet
+booby
+petrel
+shearwater
+storm petrel
+avocet
+stilt
+plover
+sandpiper
+snipe
+curlew
+godwit
+oystercatcher
+lapwing
+skua
+gull
+tern
+skimmer
+auk
+murre
+guillemot
+dove
+pigeon
+parakeet
+lovebird
+cockatoo
+lory
+lorikeet
+budgerigar
+komodo dragon
+green iguana
+marine iguana
+gila monster
+bearded dragon
+veiled chameleon
+panther chameleon
+nile crocodile
+american alligator
+caiman
+gharial
+king cobra
+black mamba
+western diamondback rattlesnake
+reticulated python
+burmese python
+green anaconda
+boa constrictor
+gaboon viper
+russell’s viper
+green sea turtle
+leatherback sea turtle
+hawksbill sea turtle
+galapagos tortoise
+aldabra tortoise
+nile monitor
+blue-tongued skink
+tokay gecko
+crested gecko
+tuatara
+agama
+frilled lizard
+thorny devil
+uromastyx
+anole
+basilisk
+collared lizard
+horned lizard
+sidewinder
+puff adder
+coral snake
+garter snake
+rat snake
+milk snake
+kingsnake
+hognose snake
+boomslang
+taipan
+krait
+sea snake
+axolotl
+fire salamander
+tiger salamander
+red-spotted newt
+crested newt
+poison dart frog
+red-eyed tree frog
+goliath frog
+bullfrog
+coqui frog
+cane toad
+colorado river toad
+surinam toad
+glass frog
+african clawed frog
+mantella frog
+tomato frog
+midwife toad
+spadefoot toad
+caecilian
+great white shark
+hammerhead shark
+whale shark
+manta ray
+stingray
+moray eel
+anglerfish
+clownfish
+blue tang
+lionfish
+seahorse
+pufferfish
+barracuda
+bluefin tuna
+swordfish
+sailfish
+blue marlin
+coelacanth
+arapaima
+piranha
+electric eel
+betta fish
+guppy
+angelfish
+discus fish
+sturgeon
+gar
+lungfish
+bichir
+arowana
+oscar
+tetra
+barb
+molly
+platy
+gourami
+killifish
+pipefish
+leafy seadragon
+mandarinfish
+parrotfish
+wrasse
+blenny
+goby
+damselfish
+triggerfish
+surgeonfish
+butterflyfish
+hawkfish
+grouper
+snapper
+jackfish
+mackerel
+sardine
+anchovy
+herring
+cod
+halibut
+flounder
+sole
+giant pacific octopus
+cuttlefish
+colossal squid
+humboldt squid
+nautilus
+lion’s mane jellyfish
+box jellyfish
+sea anemone
+staghorn coral
+brain coral
+crown-of-thorns starfish
+sea urchin
+sea cucumber
+giant isopod
+horseshoe crab
+tarantula
+black widow spider
+goliath birdeater
+emperor scorpion
+giant centipede
+millipede
+praying mantis
+monarch butterfly
+morpho butterfly
+honeybee
+bumblebee
+leafcutter ant
+army ant
+termite
+dragonfly
+damselfly
+grasshopper
+cricket
+firefly
+ladybug
+stag beetle
+rhinoceros beetle
+hercules beetle
+fire ant
+carpenter ant
+cicada
+katydid
+stick insect
+leaf insect
+mantis shrimp
+lobster
+crab
+shrimp
+krill
+barnacle
+sea spider
+trilobite beetle
+velvet ant
+hornet
+wasp
+yellowjacket
+paper wasp
+aphid
+scale insect
+whitefly
+portuguese man o’ war
+blue dragon sea slug
+velvet worm
+tardigrade
+flatworm
+leech
+earthworm
+giant clam
+oyster
+mussel
+scallop
+nudibranch
+sea pen
+comb jelly
+hydroid
+siphonophore
+tapeworm
+roundworm
+fluke
+arrow worm

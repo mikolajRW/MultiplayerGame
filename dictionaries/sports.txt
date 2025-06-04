@@ -1,0 +1,671 @@
+archery
+badminton
+baseball
+basketball
+boxing
+cricket
+cycling
+darts
+fencing
+football
+golf
+gymnastics
+hockey
+judo
+karate
+rugby
+soccer
+swimming
+tennis
+volleyball
+wrestling
+athletics
+table tennis
+squash
+lacrosse
+field hockey
+ice hockey
+synchronized swimming
+diving
+water polo
+rowing
+sailing
+canoeing
+kayaking
+triathlon
+marathon
+cross country running
+sprint
+hurdles
+long jump
+high jump
+pole vault
+shot put
+discus throw
+javelin throw
+hammer throw
+decathlon
+heptathlon
+biathlon
+cross country skiing
+alpine skiing
+snowboarding
+figure skating
+speed skating
+short track speed skating
+freestyle skiing
+ski jumping
+nordic combined
+curling
+bobsleigh
+luge
+skeleton
+equestrian
+dressage
+show jumping
+eventing
+polo
+rodeo
+bull riding
+barrel racing
+motocross
+mountain biking
+bmx
+road cycling
+track cycling
+skateboarding
+roller skating
+inline skating
+ice skating
+surfing
+windsurfing
+kitesurfing
+wakeboarding
+water skiing
+jet skiing
+stand-up paddleboarding
+synchronized diving
+cliff diving
+scuba diving
+snorkeling
+spearfishing
+angling
+fly fishing
+ice fishing
+archery tag
+ultimate frisbee
+disc golf
+croquet
+bowls
+lawn bowls
+petanque
+shuffleboard
+horseshoe pitching
+ringette
+bandy
+broomball
+floorball
+street hockey
+roller hockey
+underwater hockey
+synchronized skating
+cheerleading
+dance
+ballroom dancing
+breakdancing
+hip hop dance
+tap dancing
+ballet
+modern dance
+jazz dance
+folk dance
+capoeira
+sumo
+taekwondo
+kung fu
+aikido
+jiu-jitsu
+muay thai
+kickboxing
+savate
+mixed martial arts
+sambo
+hapkido
+kendo
+iaido
+naginata
+kyudo
+fencing foil
+fencing epee
+fencing sabre
+sport climbing
+bouldering
+speed climbing
+lead climbing
+mountaineering
+ice climbing
+hiking
+orienteering
+geocaching
+trail running
+ultramarathon
+adventure racing
+parkour
+freerunning
+trampolining
+rhythmic gymnastics
+artistic gymnastics
+tumbling
+acrobatic gymnastics
+aerobic gymnastics
+weightlifting
+powerlifting
+bodybuilding
+crossfit
+strongman
+arm wrestling
+tug of war
+kabaddi
+sepak takraw
+bossaball
+footvolley
+beach volleyball
+beach soccer
+beach tennis
+beach handball
+fistball
+goalball
+torball
+wheelchair basketball
+wheelchair rugby
+sledge hockey
+paralympic swimming
+paralympic athletics
+boccia
+sitting volleyball
+para archery
+para cycling
+para equestrian
+para judo
+para taekwondo
+para badminton
+para table tennis
+para powerlifting
+para alpine skiing
+para snowboard
+para ice hockey
+blind soccer
+amputee football
+cerebral palsy football
+pickleball
+padel
+racquetball
+handball
+team handball
+gaelic football
+australian rules football
+hurling
+camogie
+shinty
+softball
+rounders
+baseball5
+kickball
+wiffle ball
+stickball
+pesapallo
+korfball
+netball
+roller derby
+dodgeball
+gaga ball
+quidditch
+muggle quidditch
+chess boxing
+underwater rugby
+underwater football
+synchronized diving
+synchronized skating
+dragon boat racing
+outrigger canoeing
+yacht racing
+model yachting
+radio sailing
+kiteboarding
+snowkiting
+land sailing
+street luge
+downhill skateboarding
+longboarding
+slalom skateboarding
+freestyle skateboarding
+vert skateboarding
+street skateboarding
+scooter freestyle
+unicycle freestyle
+unicycle hockey
+unicycle basketball
+cycle polo
+bike polo
+horseball
+buzkashi
+pato
+calf roping
+steer wrestling
+team roping
+breakaway roping
+goat tying
+chuckwagon racing
+harness racing
+flat racing
+steeplechase
+cross country equestrian
+endurance riding
+vaulting
+reining
+cutting
+team penning
+ranch sorting
+dog sledding
+skijoring
+mushing
+carting
+weight pulling
+canicross
+bikejoring
+scooterjoring
+flyball
+agility dog
+dock diving
+disc dog
+herding
+schutzhund
+french ring sport
+mondioring
+protection dog sport
+tracking
+field trial
+hunting
+falconry
+boar hunting
+deer hunting
+fox hunting
+rabbit hunting
+bird hunting
+trap shooting
+skeet shooting
+sporting clays
+target shooting
+biathlon shooting
+benchrest shooting
+practical shooting
+action shooting
+cowboy action shooting
+metallic silhouette
+field archery
+3d archery
+clout archery
+flight archery
+crossbow archery
+horse archery
+battledore
+shuttlecock
+speedminton
+footbag
+hacky sack
+freestyle footbag
+footbag net
+juggling
+diabolo
+yo-yo
+kendama
+poi spinning
+hula hooping
+fire dancing
+slacklining
+tightrope walking
+highlining
+freestyle walking
+urban exploration
+caving
+spelunking
+sandboarding
+snow tubing
+tobogganing
+snowmobiling
+atv racing
+rally racing
+drag racing
+stock car racing
+formula racing
+kart racing
+enduro
+supercross
+trials biking
+freestyle motocross
+snowmobile racing
+jet ski racing
+powerboat racing
+hydroplane racing
+sailboat racing
+windsurf racing
+kiteboard racing
+model car racing
+slot car racing
+radio-controlled car racing
+drone racing
+robot combat
+sumo wrestling
+freestyle wrestling
+greco-roman wrestling
+collegiate wrestling
+submission wrestling
+folk wrestling
+oil wrestling
+belt wrestling
+jacket wrestling
+kurash
+sanda
+wushu
+silat
+krav maga
+eskrima
+arnis
+kali
+fencing wheelchair
+para fencing
+wheelchair tennis
+wheelchair curling
+goalball
+blind cricket
+beep baseball
+blind football
+deaf basketball
+deaf volleyball
+deaf soccer
+powerchair football
+amputee soccer
+frame running
+para triathlon
+para rowing
+para sailing
+para canoeing
+para swimming
+para shooting
+para archery
+para athletics
+para badminton
+para table tennis
+para powerlifting
+para alpine skiing
+para snowboard
+para ice hockey
+para judo
+para taekwondo
+para equestrian
+para cycling
+para swimming
+para athletics
+para archery
+para badminton
+para table tennis
+para powerlifting
+para alpine skiing
+para snowboard
+para ice hockey
+para judo
+para taekwondo
+para equestrian
+para cycling
+blind judo
+deaf judo
+wheelchair fencing
+wheelchair curling
+powerchair soccer
+sledge hockey
+sitting volleyball
+blind soccer
+amputee football
+cerebral palsy football
+frame running
+para triathlon
+para rowing
+para sailing
+para canoeing
+para swimming
+para shooting
+para archery
+para badminton
+para table tennis
+para powerlifting
+para alpine skiing
+para snowboard
+para ice hockey
+para judo
+para taekwondo
+para equestrian
+para cycling
+blind judo
+deaf judo
+wheelchair fencing
+wheelchair curling
+powerchair soccer
+sledge hockey
+sitting volleyball
+blind soccer
+amputee football
+cerebral palsy football
+frame running
+para triathlon
+para rowing
+para sailing
+para canoeing
+para swimming
+para shooting
+para archery
+para badminton
+para table tennis
+para powerlifting
+para alpine skiing
+para snowboard
+para ice hockey
+para judo
+para taekwondo
+para equestrian
+para cycling
+blind judo
+deaf judo
+wheelchair fencing
+wheelchair curling
+powerchair soccer
+sledge hockey
+sitting volleyball
+blind soccer
+amputee football
+cerebral palsy football
+frame running
+para triathlon
+para rowing
+para sailing
+para canoeing
+para swimming
+para shooting
+para archery
+para badminton
+para table tennis
+para powerlifting
+para alpine skiing
+para snowboard
+para ice hockey
+para judo
+para taekwondo
+para equestrian
+para cycling
+blind judo
+deaf judo
+wheelchair fencing
+wheelchair curling
+powerchair soccer
+sledge hockey
+sitting volleyball
+blind soccer
+amputee football
+cerebral palsy football
+frame running
+para triathlon
+para rowing
+para sailing
+para canoeing
+para swimming
+para shooting
+para archery
+para badminton
+para table tennis
+para powerlifting
+para alpine skiing
+para snowboard
+para ice hockey
+para judo
+para taekwondo
+para equestrian
+para cycling
+blind judo
+deaf judo
+wheelchair fencing
+wheelchair curling
+powerchair soccer
+sledge hockey
+sitting volleyball
+blind soccer
+amputee football
+cerebral palsy football
+frame running
+para triathlon
+para rowing
+para sailing
+para canoeing
+para swimming
+para shooting
+para archery
+para badminton
+para table tennis
+para powerlifting
+para alpine skiing
+para snowboard
+para ice hockey
+para judo
+para taekwondo
+para equestrian
+para cycling
+blind judo
+deaf judo
+wheelchair fencing
+wheelchair curling
+powerchair soccer
+sledge hockey
+sitting volleyball
+blind soccer
+amputee football
+cerebral palsy football
+frame running
+para triathlon
+para rowing
+para sailing
+para canoeing
+para swimming
+para shooting
+para archery
+para badminton
+para table tennis
+para powerlifting
+para alpine skiing
+para snowboard
+para ice hockey
+para judo
+para taekwondo
+para equestrian
+para cycling
+blind judo
+deaf judo
+wheelchair fencing
+wheelchair curling
+powerchair soccer
+sledge hockey
+sitting volleyball
+blind soccer
+amputee football
+cerebral palsy football
+frame running
+para triathlon
+para rowing
+para sailing
+para canoeing
+para swimming
+para shooting
+para archery
+para badminton
+para table tennis
+para powerlifting
+para alpine skiing
+para snowboard
+para ice hockey
+para judo
+para taekwondo
+para equestrian
+para cycling
+blind judo
+deaf judo
+wheelchair fencing
+wheelchair curling
+powerchair soccer
+sledge hockey
+sitting volleyball
+blind soccer
+amputee football
+cerebral palsy football
+frame running
+para triathlon
+para rowing
+para sailing
+para canoeing
+para swimming
+para shooting
+para archery
+para badminton
+para table tennis
+para powerlifting
+para alpine skiing
+para snowboard
+para ice hockey
+para judo
+para taekwondo
+para equestrian
+para cycling
+blind judo
+deaf judo
+wheelchair fencing
+wheelchair curling
+powerchair soccer
+sledge hockey
+sitting volleyball
+blind soccer
+amputee football
+cerebral palsy football
+frame running
+para triathlon
+para rowing
+para sailing
+para canoeing
+para swimming
+para shooting
+para archery
+para badminton
+para table tennis
+para powerlifting
+para alpine skiing
+para snowboard
+para ice hockey
+para judo
+para taekwondo
+para equestrian
+para cycling
