@@ -8,26 +8,6 @@ def handle_client(conn, addr, BUFFER_SIZE, process_message):
 
         When the client disconnects or an error occurs, any remaining partial message is
         processed before the connection is closed.
-
-        Parameters:
-            conn (socket.socket): The socket object connected to the client.
-            addr (tuple): The address of the connected client, typically (host, port).
-            BUFFER_SIZE (int): The size of the buffer for receiving data (in bytes).
-            process_message (Callable[[socket.socket, str, tuple], None]):
-                A callback function that handles each complete message.
-                It receives the client socket, the message string, and the client address.
-
-        Behavior:
-            - Receives incoming data using `conn.recv(BUFFER_SIZE)`.
-            - Buffers incomplete messages until a newline (`\n`) is found.
-            - Splits and processes each message individually by calling `process_message()`.
-            - Catches and logs exceptions during communication.
-            - On disconnection, processes any remaining partial message (last 3 words).
-            - Closes the connection in the `finally` block.
-
-        Exceptions:
-            Any exceptions during the communication loop are caught and printed,
-            but do not halt execution of the server.
     """
 
 

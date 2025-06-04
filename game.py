@@ -16,7 +16,7 @@ import time
 MAX_LOBBY = 4
 NUMBER_OF_CATEGORIES = 6
 from pyexpat.errors import messages
-MAX_ROUNDS = 3
+MAX_ROUNDS = 4
 # SET GLOBAL VARIABLES
 pygame.init()
 
@@ -399,15 +399,6 @@ class Game:
                 self.lobby_type = "LOBBY_SHOW"
                 lobby_id = key.split('_')[2]
                 connection.send(f"JOIN {lobby_id} {self.nickname}\n")
-                # Check for response immediately after sending JOIN
-                #last_msg = str(connection.get_latest_message()).split(" ")
-               # if last_msg[0] == "ERROR_NICKNAME_TAKEN":
-                #    self.draw_pretty_text("Nickname already taken! Choose another.", game_font, (255, 0, 0), bg_color, 50)
-                 #   pygame.display.update()
-                  #  pygame.time.delay(2000)
-                   # self.close_network_connection(connection, "Nickname taken, returning to nickname input")
-                   # self.enter_data(cursor)
-                   # break
 
 
     def handle_readiness_for_game(self, last_msg, connection, message):
@@ -462,12 +453,13 @@ class Game:
         - How many players are ready to start a game
         - If there is only one player - he cannot start a game - to little players to play
         """
-        if last_msg[0] == "NOT":
+        print("TUUU", last_msg)
+        if last_msg[0] == "NOT" and last_msg[0] is not None:
             last_rect = self.draw_pretty_text(F"Lobby ID: {last_msg[1]}, amount of players: {last_msg[2]}/{MAX_LOBBY}",
                                               game_font, category_color, bg_color, pos, 8, 20, 28, last_rect)
             last_rect = self.draw_pretty_text("Not enough players to start a game", game_font, category_color,
                                               bg_color, pos + 50, 8, 20, prev_rect=last_rect)
-        else:
+        elif last_msg[0] is not None:
             last_rect = self.draw_pretty_text(F"Lobby ID: {last_msg[0]}, amount of players: {last_msg[1]}/{MAX_LOBBY}",
                                               game_font, category_color, bg_color, pos, prev_rect=last_rect)
             last_rect = self.draw_pretty_text(f"{last_msg[-1][0]}/{last_msg[1]} READY", game_font, category_color,
@@ -584,6 +576,7 @@ class Game:
             else:
                 active_buttons = []
 
+
             # Last message from server = "START_GAME" - close connection with server responsible for handling lobby
             # Save 'last_msg[0].split("-")[1]' it is lobby_id - it will a token to created the same lobby with the same players
             if last_msg[0].split("-")[0] == "START_GAME":
@@ -591,12 +584,12 @@ class Game:
                 self.token = last_msg[0].split("-")[1]
                 self.gameplay(run, cursor, df)
             # New lobby is created
-            elif self.lobby_type == "START" and last_msg is not None:
+            elif self.lobby_type == "START" and last_msg[0] != 'None':
                 in_lobby = True
                 self.lobby_type = "LOBBY_SHOW"
 
             # Print all available lobbies for a player - if he decides to join already created lobby
-            elif self.lobby_type == "SHOW" and last_msg is not None:
+            elif self.lobby_type == "SHOW":
                 # If player wants to join a lobby which is full - present a message for 3 seconds that he cannot
                 if cannot_join_lobby:
                     self.draw_pretty_text("CANNOT JOIN LOBBY", game_font, category_color,
@@ -619,7 +612,7 @@ class Game:
                 self.lobby_type = "SHOW"
 
             # Show the current state of a specific lobby
-            elif self.lobby_type == "LOBBY_SHOW" and last_msg[0] is not None:
+            elif self.lobby_type == "LOBBY_SHOW" and last_msg[0] != 'None':
                 active_buttons.extend([exit_button, refresh_button_lobby, ready_button])
                 last_msg = last_msg[0].split("-")
                 last_rect = None
@@ -633,102 +626,7 @@ class Game:
 
             pygame.display.flip()
 
-    def show_round_results(self, run, last_msg, connection):
-        exit_button = Button(
-            width=SCREEN_WIDTH / 4,
-            height=SCREEN_HEIGHT / 10,
-            text="Exit Game",
-            font=game_font,
-            text_col=(100, 100, 100),
-            x=SCREEN_WIDTH - SCREEN_WIDTH / 4 - 20,
-            y=20
-        )
 
-        active_buttons = [exit_button]
-
-        start_time = pygame.time.get_ticks()
-        max_time = 15
-
-        results = []
-
-        try:
-            if len(last_msg) < 3:
-                raise ValueError("Invalid results message format")
-
-            for result in last_msg[2:]:
-                if result:
-                    parts = result.split("_")
-                    if len(parts) == 4:
-                        results.append({
-                            "nickname": parts[0],
-                            "category": parts[1],
-                            "answer": parts[2] if parts[2] else "None",
-                            "points": parts[3].strip("-")
-                        })
-        except Exception as e:
-            print(f"Error parsing results: {e}")
-            results = []
-
-        while run:
-            screen.fill((235, 132, 250))
-            mouse = pygame.mouse.get_pos()
-
-            # Organize results by player
-            player_results = defaultdict(list)
-            for result in results:
-                player_results[result["nickname"]].append(result)
-
-            pos_y = 100
-            last_rect = None
-            for nickname, answers in player_results.items():
-                total_points = sum(int(ans["points"]) for ans in answers)
-                last_rect = self.draw_pretty_text(
-                    f"{nickname} (Total: {total_points} points)",
-                    game_font, category_color, bg_color, pos_y, prev_rect=last_rect
-                )
-                pos_y += 50
-                last_rect.x += 200
-
-                for ans in answers:
-                    text = f"{ans['category']}: {ans['answer']} ({ans['points']} pts)"
-                    last_rect = self.draw_pretty_text(
-                        text, results_font, answer_color, bg_color, pos_y, prev_rect=last_rect
-                    )
-                    pos_y += 40
-
-            elapsed_time = (pygame.time.get_ticks() - start_time) // 1000
-            time_left = max(0, max_time - elapsed_time)
-            self.draw_text(
-                f"Continuing in {time_left} seconds",
-                results_font, category_color, SCREEN_WIDTH / 2 - 100, SCREEN_HEIGHT - 50
-            )
-
-            for button in active_buttons:
-                button.draw(screen)
-                button.change_color(mouse)
-
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    connection.send(f"LEAVE {self.token}\n")
-                    self.close_network_connection(connection, "LEAVING GAME")
-                    self.menu(run, cursor, df)
-                    return run
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if exit_button.checkForClick(mouse):
-                        connection.send(f"LEAVE {self.token}\n")
-                        self.close_network_connection(connection, "LEAVING GAME")
-                        self.menu(run, cursor, df)
-                        return run
-                if event.type == pygame.MOUSEMOTION:
-                    for button in active_buttons:
-                        button.change_color(mouse)
-
-            if time_left == 0:
-                return run
-
-            pygame.display.flip()
-
-        return run
 
     def show_leaderboard(self, run, last_msg, connection):
         exit_button = Button(
@@ -789,6 +687,23 @@ class Game:
                         button.change_color(mouse)
             pygame.display.flip()
         return run
+
+
+    def show_answers(self, results):
+        screen.fill((235, 132, 250))
+        results = results.split("#")
+        font = pygame.font.Font(None, 15)
+        self.draw_pretty_text(f"ANSWERS IN THIS ROUND", font, category_color, bg_color, 50)
+        posY = 100
+        for result in results[:-1]:
+            result = result.split("_")
+            self.draw_pretty_text(f"{result[0]}-{result[1]}-{result[2]}-{result[3]}",font, category_color, bg_color, posY)
+            posY += 50
+        pygame.display.update()
+        pygame.time.delay(10000)
+
+
+
 
     def gameplay(self, run, cursor, df):
         """
@@ -946,8 +861,11 @@ class Game:
             elif last_msg is not None and last_msg[0] == 'SHOW_RESULTS':
                 df["Answer"] = [last_msg[1]] * len(game_categories)
                 #run = self.show_round_results(run, last_msg, connection)
+                self.show_answers(last_msg[2])
                 round += 1
                 connection.send(f"SHOW_PUNCTUATION {self.token}\n")
+
+
             cursor = self.check_cursor(cursor)
             self.print_categories_and_answers()
             self.print_cursor(cursor, df)

@@ -1,13 +1,4 @@
-"""
-Lobby Server Module
-
-This script sets up a TCP server that manages multiplayer game lobbies.
-Clients can create, join, leave, and view lobbies. Once all players in a lobby are ready,
-the server notifies them to start the game.
-
-"""
-
-# Import
+import random
 import socket
 import threading
 import network_utils
@@ -58,9 +49,6 @@ def process_message(conn: socket.socket, message: str, addr: tuple):
         if message.startswith("START"):
             _, nickname = message.split(" ")
             with lobby_lock:
-                if nickname in nicknames:
-                    conn.sendall("ERROR_NICKNAME_TAKEN".encode())
-                    return
                 lobby_id = str(LOBBIES_ID)
                 LOBBIES_ID += 1
                 lobbies[lobby_id] = [conn]
@@ -90,17 +78,15 @@ def process_message(conn: socket.socket, message: str, addr: tuple):
 
         elif message.startswith("JOIN"):
             _, lobby_id, nickname = message.split(" ")
+
             with lobby_lock:
-                if nickname in nicknames:
-                    conn.sendall("ERROR_NICKNAME_TAKEN".encode())
-                    return
                 if lobby_id in lobbies and len(lobbies[lobby_id]) < MAX_LOBBY:
                     lobbies[lobby_id].append(conn)
                     nicknames[nickname] = conn
                     response = f"{lobby_id}-{len(lobbies[lobby_id])}-{lobbies_ready[lobby_id]}\n"
                     for client in lobbies[lobby_id]:
                         client.sendall(response.encode())
-                    #conn.sendall(response.encode())
+
                 else:
                     conn.sendall("Cannot join lobby\n".encode())
 
@@ -117,7 +103,7 @@ def process_message(conn: socket.socket, message: str, addr: tuple):
                         response = f"{lobby_id}-{len(lobbies[lobby_id])}-{lobbies_ready[lobby_id]}\n"
                         for client in lobbies[lobby_id]:
                             client.sendall(response.encode())
-                    #conn.sendall("LEFT_SUCCESSFULLY\n".encode())
+
                 else:
                     conn.sendall("NOT_IN_LOBBY\n".encode())
 
@@ -137,7 +123,7 @@ def process_message(conn: socket.socket, message: str, addr: tuple):
                     else:
                         for client in lobbies[lobby_id]:
                             client.sendall(response.encode())
-                        #conn.sendall(f"{lobby_id}-{len(lobbies[lobby_id])}-{lobbies_ready[lobby_id]}".encode())
+
 
         elif message.startswith("UNREADY"):
             _, nickname, lobby_id = message.split(" ")
@@ -146,7 +132,7 @@ def process_message(conn: socket.socket, message: str, addr: tuple):
             response = f"{lobby_id}-{len(lobbies[lobby_id])}-{lobbies_ready[lobby_id]}\n"
             for client in lobbies[lobby_id]:
                 client.sendall(response.encode())
-            #conn.sendall(f"{lobby_id}-{len(lobbies[lobby_id])}-{lobbies_ready[lobby_id]}".encode())
+
 
         else:
             conn.sendall("UNKNOWN_COMMAND\n".encode())
@@ -156,17 +142,8 @@ def process_message(conn: socket.socket, message: str, addr: tuple):
         conn.sendall(f"ERROR {e}\n".encode())
 
 
+# Start server
 def start_server():
-    """
-    Starts the lobby TCP server.
-
-    - Binds to the configured HOST and PORT.
-    - Accepts new client connections.
-    - Spawns a new thread per client using `handle_client` from `network_utils`,
-      passing the `process_message` function as a callback.
-
-    This function blocks forever while the server is running.
-    """
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.bind((HOST, PORT))
     server.listen()
